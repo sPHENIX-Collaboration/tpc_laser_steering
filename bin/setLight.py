@@ -36,7 +36,7 @@ def setLight( attenuator=None, inputval=None ):
     maxKey = attenuator+"/maxlight"
     # get the value from the dict.
     if debug:
-        print("setLight: looking for attenuator min/max values %s/%s"% (minKey, maxKey))
+        print("setLight: looking for attenuator min/max values %s , %s"% (minKey, maxKey))
     minPos = -1000
     maxPos = -1000
     maxBool,maxPos=kfDatabase.readVar(mainDb, maxKey)
