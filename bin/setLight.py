@@ -8,13 +8,13 @@ from quickReport import readback, reportXCD2
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 from goto import goto
 
-# to load tty data from the db so we know which tty we want:
+# to load axis data from the db:
 sys.path.append("kfDatabase")
 import kfDatabase
 
 # tuning settings
 sleeptime=0.5 #in seconds
-debug=False
+debug=True
 mainDb = 'axis_parameters.kfdb'
 
 
