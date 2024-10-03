@@ -24,13 +24,6 @@ def setLight( attenuator=None, inputval=None ):
         print("wrong args for setLight.  requires two arguments.")
         return False
 
-    #check if controller is busy.  If so, exit with explanation
-    if debug:
-        print("setLight:  Check status:")
-    status=readback(ADDR['STATUS'])
-    if status!=0:
-        print("NOT EXECUTED. Controller status is not 0.")
-        return False, 0
     # convert attenuator percentage from str to float
     try:
         percentage = float(inputval)
