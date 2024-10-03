@@ -6,6 +6,7 @@ import time
 import math
 from quickReport import readback, reportXCD2
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
+from goto import goto
 
 # to load tty data from the db so we know which tty we want:
 sys.path.append("kfDatabase")
@@ -14,21 +15,19 @@ import kfDatabase
 # tuning settings
 sleeptime=0.5 #in seconds
 debug=False
-mainDb = 'test_only_axis_parameters.kfdb'
+mainDb = 'axis_parameters.kfdb'
 
 
 def setLight( attenuator=None, inputval=None ):
 
     if attenuator==None or inputval==None:
-        print("wrong args for goto.  requires two arguments.")
+        print("wrong args for setLight.  requires two arguments.")
         return False
 
     #check if controller is busy.  If so, exit with explanation
     if debug:
-        print("goto:  Check status:")
+        print("setLight:  Check status:")
     status=readback(ADDR['STATUS'])
-
-    # check status
     if status!=0:
         print("NOT EXECUTED. Controller status is not 0.")
         return False, 0
@@ -44,14 +43,14 @@ def setLight( attenuator=None, inputval=None ):
     maxKey = attenuator+"/maxlight"
     # get the value from the dict.
     if debug:
-        print("goto: looking for attenuator min/max values %s/%s"% (minKey, maxKey))
+        print("setLight: looking for attenuator min/max values %s/%s"% (minKey, maxKey))
     minPos = -1000
     maxPos = -1000
     maxBool,maxPos=kfDatabase.readVar(mainDb, maxKey)
     minBool,minPos=kfDatabase.readVar(mainDb, minKey)
     # check that it returned successfully
     if not (minBool or maxBool):
-        print("goto: kfDatabase failed.  minLight '%s' or maxLight '%s' (or both) not found. (kfdb=%s, , minKey=%s, maxKey=%s)" % (minPos,maxPos,mainDb,minKey,maxKey))
+        print("setLight: kfDatabase failed.  minLight '%s' or maxLight '%s' (or both) not found. (kfdb=%s, , minKey=%s, maxKey=%s)" % (minPos,maxPos,mainDb,minKey,maxKey))
         return False        
     #  check to see if the dict value is a number.
     #  if number: make it a float.
@@ -64,7 +63,17 @@ def setLight( attenuator=None, inputval=None ):
 
 
     # we presume the attenuator has a sin^2() profile
-    desired_pos = 4/math.pi*(math.asin(math.sqrt(percentage)))
+    #fractional position between low and high is:
+    #light_percentage=sin^2(pi/2*(pos-minpos)/(maxpos-minpos)) (we get a peak whenever our linear fraction is an odd integer)
+    #sqrt(light_percentage)=sin(pi/2 * linear_fraction)
+    #pi/2*linear_fraction=asin(sqrt(light_percentage)
+    linear_fraction = 2/math.pi*(math.asin(math.sqrt(percentage)))
+    #the desired position is the minlight position plus that fraction of the distance between min and max
+    #linear_fraction=(desired_pos-minpos)/(maxpos-minpos)
+    #this has the advantage of taking care of any directionality (max>min or max<min) automatically.
+    desired_pos=minPos+(maxPos-minPos)*linear_fraction
+print("setLight: desired_pos=%s+(%s-%s)*%s=%s.  Driving %s to %s. (kfdb=%s, minKey=%s, maxKey=%s, pct=%s)" % (minPos,maxPos,minPos,linear_fraction,attenuator,desired_pos,mainDb,minKey,maxKey,percentage))
+    #goto(attenuator,desired_pos)
 
     return
 
