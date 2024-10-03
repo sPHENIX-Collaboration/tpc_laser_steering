@@ -72,7 +72,7 @@ def setLight( attenuator=None, inputval=None ):
     #linear_fraction=(desired_pos-minpos)/(maxpos-minpos)
     #this has the advantage of taking care of any directionality (max>min or max<min) automatically.
     desired_pos=minPos+(maxPos-minPos)*linear_fraction
-    print("setLight: desired_pos=%s+(%s-%s)*%s=%s.  Driving %s to %s. (kfdb=%s, minKey=%s, maxKey=%s, pct=%s)" % (minPos,maxPos,minPos,linear_fraction,attenuator,desired_pos,mainDb,minKey,maxKey,percentage))
+    print("setLight: desired_pos=%s+(%s-%s)*%s=%s.  Driving %s to %s. (kfdb=%s, minKey=%s, maxKey=%s, pct=%s)" % (minPos,maxPos,minPos,linear_fraction,desired_pos, attenuator,desired_pos, mainDb,minKey,maxKey,percentage))
     #goto(attenuator,desired_pos)
     
     return
