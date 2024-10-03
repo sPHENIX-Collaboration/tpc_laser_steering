@@ -18,6 +18,13 @@ debug=True
 mainDb = 'axis_parameters.kfdb'
 
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 def setLight( attenuator=None, inputval=None ):
 
     if attenuator==None or inputval==None:
