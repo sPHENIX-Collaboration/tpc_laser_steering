@@ -28,7 +28,7 @@ debug=False
 portsDb="xcd2_ports.kfdb"
 #mainDb="axis_parameters.kfdb"
 #portsDb="test_only_xcd2_ports.kfdb"
-mainDb="test_only_axis_parameters.kfdb"
+mainDb="axis_parameters.kfdb"
 PORTFILE="XCD_current_port"
 
 #{later:
@@ -156,7 +156,7 @@ if __name__ == "__main__":
             sys.exit()
     else:
         print("NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
-        print("   ./gotoRelative.py laser_name position")
+        print("   ./gotoRelative.py laser_axis_name position")
         sys.exit()
     #if wrong arguments, exit with explanation
 

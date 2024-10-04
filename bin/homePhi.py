@@ -17,7 +17,7 @@ import kfDatabase
 #tuning settings
 sleeptime=0.3 #in seconds
 debug=False
-mainDb="test_only_axis_parameters.kfdb"
+mainDb="axis_parameters.kfdb"
 matchTolerance=0.001
 
 

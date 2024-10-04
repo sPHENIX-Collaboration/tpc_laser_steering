@@ -12,7 +12,7 @@ import sys
 sys.path.append("kfDatabase")
 import kfDatabase
 
-mainDb="test_only_axis_parameters.kfdb"
+mainDb="axis_parameters.kfdb"
 
 
 def _reverseLookup(dict,val):

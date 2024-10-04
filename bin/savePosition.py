@@ -10,7 +10,7 @@ from variableDictionaryXCD2 import varUniqueID as AXID
 # to load tty data from the db so we know which tty we want:
 sys.path.append("kfDatabase")
 import kfDatabase
-mainDb="test_only_axis_parameters.kfdb"
+mainDb="axis_parameters.kfdb"
 
 
 def savePosition(keyName,newness):

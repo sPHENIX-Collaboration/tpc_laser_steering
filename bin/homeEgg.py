@@ -23,7 +23,7 @@ import kfDatabase
 sleeptime = 0.5 # in seconds
 timeout = 10    # in seconds
 debug=False
-mainDb="test_only_axis_parameters.kfdb"
+mainDb="axis_parameters.kfdb"
 matchTolerance=0.001
 
 
@@ -41,6 +41,7 @@ def _reverseLookup(dict,val):
 #homeAttenuator() should return success, lowbound, highbound,home, in that order.
 
 def homeEgg(laser, referenceEgg):
+    print("homeEgg needs to have its 'reference egg' stuff amended.  And needs to move the thL to a safe position.  Proceed with caution!")
     dbRef=["default"]*3
     laserAxisName=["default_laser"]*3
     hResult=[False]*3
@@ -61,7 +62,8 @@ def homeEgg(laser, referenceEgg):
         print("Could not changeAxis(%s)."%laserAxisName[0])
         return False
     hResult[0],lb[0],hb[0],home[0]=homeThetaL(dbRef[0])
-
+    #we should move thL to a safe position here!
+    
     cResult=changeAxis(laserAxisName[1])
     writeXCD2([ADDR['STATUS'], 0])
     if cResult==False:

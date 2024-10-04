@@ -43,7 +43,7 @@ debug=False
 portsDb="xcd2_ports.kfdb"
 #mainDb="axis_parameters.kfdb"
 #portsDb="test_only_xcd2_ports.kfdb"
-mainDb="test_only_axis_parameters.kfdb"
+mainDb="axis_parameters.kfdb"
 PORTFILE="XCD_current_port"
 
 
