@@ -8,7 +8,8 @@ varTuning = {
 'Phi':[0.1,0.001],
 'ThetaS':[0.01,0.001],
 'ThetaL':[0.02,0.001],
-'Attenuator':[0.02,0.005],
+#'Attenuator':[0.02,0.005],
+'Attenuator':[0.005,0.003],
 'Dogleg':[0.01,0.001]
 }
 
