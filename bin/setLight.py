@@ -25,7 +25,7 @@ def is_number(s):
     except ValueError:
         return False
 
-def setLight( attenuator=None, inputval=None ):
+def setLight( attenuator=None, inputval=None, openloop=False):
 
     if attenuator==None or inputval==None:
         print("wrong args for setLight.  requires two arguments.")
@@ -57,7 +57,7 @@ def setLight( attenuator=None, inputval=None ):
     if (is_number(minPos)):
         targetPos=float(minPos ) 
     else:
-        print("goto: kfDatabase key '%s' has non-numeric value %s" % (maxKey,str(minPos)))
+        print("setLight: kfDatabase key '%s' has non-numeric value %s" % (maxKey,str(minPos)))
         return False
 
 
@@ -73,7 +73,7 @@ def setLight( attenuator=None, inputval=None ):
     #this has the advantage of taking care of any directionality (max>min or max<min) automatically.
     desired_pos=minPos+(maxPos-minPos)*linear_fraction
     print("setLight: desired_pos=%s+(%s-%s)*%s=%s.  Driving %s to %s. (kfdb=%s, minKey=%s, maxKey=%s, pct=%s)" % (minPos,maxPos,minPos,linear_fraction,desired_pos, attenuator,desired_pos, mainDb,minKey,maxKey,percentage))
-    goto(attenuator,desired_pos)
+    goto(attenuator,desired_pos,openloop)
     
     return
 
@@ -85,9 +85,21 @@ if __name__ == "__main__":
         #keep current leg, assume arg is destination.
         attenuator=sys.argv[1]
         inputval = sys.argv[2]
-        setLight( attenuator, inputval )
+        openloop=False
+    elif len(sys.argv)==4:
+        if sys.argv[3] != "ol":
+            print("NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
+            print("     ./setLight.py 9N_AT [position]")
+            print("     ./setLight.py 9N_AT [position] ol")
+            sys.exit()
+        attenuator=sys.argv[1]
+        inputval = sys.argv[2]
+        openloop=True
     else:
         print("NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
-        print("     ./setLight.py ATT# [position]")
+        print("     ./setLight.py 9N_AT [position]")
+        print("     ./setLight.py 9N_AT [position] ol")
         sys.exit()
+ 
+    setLight( attenuator, inputval,openloop )
     #if wrong arguments, exit with explanation
