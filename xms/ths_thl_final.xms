@@ -19,8 +19,9 @@ ENR = 6.103515625e-5
 MTL = 4000000
 DZMIN = ENR
 DZMAX = 4*ENR
-KP = 10
-VEL = 2
+KP = 100
+LI = 70
+VEL = 10
 
 // configure theta motor settings (non-inverted drive and feedback)
 config 900, 0x00051001
@@ -31,8 +32,9 @@ ENR = 6.103515625e-5
 MTL = 4000000
 DZMIN = ENR
 DZMAX = 4*ENR
-KP = 10
-VEL = 2
+KP = 100
+LI = 70
+VEL = 10
 
 // configure theta motor settings (non-inverted drive and feedback)
 config 900, 0x00051001
@@ -172,8 +174,12 @@ while 1
       velocityloop 0.0
       disable
 
-      // set status SUCCESS
-      V19 = 0
+      // if home not found, throw error
+      if S_IND = 0
+         V19 = 2 //errorcode FAIL_DIDNT_GET_HOME
+      else
+         V19 = 0 //set status SUCCESS
+      end
 
       // then reset to IDLE
       V0 = 0      
@@ -298,7 +304,7 @@ while 1
       // reset to IDLE state
       V0 = 0
 
-   // end phi goto procedure
+   // end openloop goto procedure
    end
 
 

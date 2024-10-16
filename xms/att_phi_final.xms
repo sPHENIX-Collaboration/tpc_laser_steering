@@ -22,8 +22,9 @@ ENR = 6.103515625e-5
 MTL = 4000000
 DZMIN = ENR
 DZMAX = 4*ENR
-KP = 10
-VEL = 20
+KP = 100
+LI = 70
+VEL = 100
 
 // configure phi motor settings  (non-inverted drive and feedback)
 config 900, 0x00011001
@@ -34,8 +35,9 @@ ENR = 6.103515625e-5
 MTL = 4000000
 DZMIN = ENR
 DZMAX = 4*ENR
-KP = 10
-VEL = 20
+KP = 100
+LI = 70
+VEL = 100
 
 // configure phi motor settings (non-inverted drive and feedback)
 config 900, 0x00011001

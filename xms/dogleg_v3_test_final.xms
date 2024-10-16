@@ -22,7 +22,8 @@ ENR = 6.103515625e-5
 MTL = 4000000
 DZMIN = ENR
 DZMAX = 4*ENR
-KP = 10
+KP = 50
+LI = 70
 VEL = 100
 
 // invert dogleg encoder feedback (bit 18)
@@ -34,7 +35,8 @@ ENR = 6.103515625e-5
 MTL = 4000000
 DZMIN = ENR
 DZMAX = 4*ENR
-KP = 10
+KP = 50
+LI = 70
 VEL = 100
 
 // invert dogleg encoder feedback (bit 18)
@@ -218,12 +220,12 @@ while 1
 
       // check time parameter if not set
       if V6 < 0 | V6 > 1000
-         V19 = 7 //errorcode NEED_ASSIGN_OL_PARAMS
+         V19 = 7 //errorcode ASSIGN_OL_PARAMS
       end
 
       // check openloop PWM supply percentage
       if V10 < -100 | V10 > 100
-         V19 = 7 //errorcode NEED_ASSIGN_OL_PARAMS
+         V19 = 7 //errorcode ASSIGN_OL_PARAMS
       end
 
       // if time and openloop parameters are valid (status has not changed)
