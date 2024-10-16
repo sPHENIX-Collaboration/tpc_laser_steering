@@ -4,6 +4,7 @@
 from quickAssign import writeXCD2
 from quickReport import readback
 from xcdSerial import getCurrentPort
+from updatePorts import updatePorts
 import sys
 import time
 from variableDictionaryXCD2 import varUniqueID as ID
@@ -66,6 +67,7 @@ if __name__ == "__main__":
         assignPorts_forEgg(sys.argv[1])
         print("Note:  This has NOT assigned the ID of the current axis (axis 0), so your first changeAxis will write to junk file and read in from the correct.")
         print("Be sure to changeAxis before you begin to steer.")
+        updatePorts()
     else:
         print("NOT EXECUTED. Wrong number of arguments.  Correct usage is ./assignPorts_forEgg.py 12S (etc)")
         sys.exit()
