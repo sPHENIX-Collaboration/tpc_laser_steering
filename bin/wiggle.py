@@ -9,7 +9,7 @@ import sys
 
 def _reverseLookup(dict,val):
     #set up the reverse dictionary
-    reverse_mapping={v: k for k, v in dict.items()}
+    reverse_mapping={v: k for k, v in dict.items()} 
     try:
         key=reverse_mapping[val]
     except KeyError as e:
@@ -37,5 +37,5 @@ if __name__ == "__main__":
         step=sys.argv[2]
         wiggleAxis(axis, step)
     else:
-        print("wiggleAxis.py failed.  Incorrect number of arguments.")
+        print("wiggle.py failed.  Incorrect number of arguments.")
         sys.exit()
