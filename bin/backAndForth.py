@@ -28,16 +28,26 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
         low=float(lb))
         high=float(hb)
     elif (lb==None) and (hb==None):
-        low=readback(ADDR[''])
-        high=readback(ADDR[''])
+        low=readback(ADDR['HARD_STOP1'])
+        high=readback(ADDR['HARD_STOP2'])
     else:
-        print("backAndForth.py failed.  Argument format not correct - should be either 0 or 2 floating point values.")
+        print("backAndForth.py failed.  Argument format not correct - function call should be followed by either 0 or 2 floating point values.")
         return
 
 
     while loop:
-        goto(axis, dest1)
-        goto(axis, dest2)
+
+        #move to low bound
+        print("----backAndForth.py moving axis ", axis, " to low bound")
+        s1, val1 = goto(axis, low)
+        if not s1:
+            print("backAndForth.py failed to move to low bound ", str(lb)," successfully.  Program will continue unless force quit.")
+        
+        #move to high bound
+        print("----backAndForth.py moving axis ", axis, " to high bound")
+        s2, val2 = goto(axis, high)
+        if not s2:
+            print("backAndForth.py failed to move to high bound ", str(hb)," successfully.  Program will continue unless force quit.")
     return
 
 
