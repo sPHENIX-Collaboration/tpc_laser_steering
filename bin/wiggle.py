@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 #
-# wiggle.py takes a given motor axis and makes tiny motions to scan around
+# wiggle.py takes a given motor axis and makes tiny motions around the current position 
+# to scan around for 
 # the current or a given position
 # create search script (waiting for user input) that scans thetaL in smallest possible steps for a given thetaS
 # needs to tell us at each point where it is (report current position after each move)
@@ -24,7 +25,10 @@ def _reverseLookup(dict,val):
     return key  
 
 
-def wiggle(axis, step, loop=True):
+def wiggle(axis, range, loop=True):
+
+
+
     position = readback(ADDR['FPOS'])
     dest1 = position - step
     dest2 = position + step
