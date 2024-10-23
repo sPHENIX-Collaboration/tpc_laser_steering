@@ -43,7 +43,7 @@ def inchworm(axis, THS_start=None, THL_start=None):
 
 
     # inch positive or negative?
-    x = input("Choose a move direction: 'p' for positive and 'n' for negative")
+    x = input("Choose a move direction: 'p' for positive and 'n' for negative: ")
     if x == 'n':
         THL_step = -1*THL_step
         THS_step = -1*THS_step
@@ -54,19 +54,19 @@ def inchworm(axis, THS_start=None, THL_start=None):
     # then start looping through alternating THS and THL moves
     while inch=="y":
 
-        move_THS, pos_THS = goto(pos_THS + THS_step)
+        move_THS, pos_THS = goto(axisTHS, pos_THS + THS_step)
         if move_THS:
             print("inchworm.py THS arrived at ", pos_THS, " .")
         else:
-            x = input("inchworm.py THS failed to arrive. Try again? If no, program will exit. [y/n]")
+            x = input("inchworm.py THS failed to arrive. Try again? If no, program will exit. [y/n]: ")
             if x=="n":
                 return
         
-        move_THL, pos_THL = goto(pos_THL + THL_step)
+        move_THL, pos_THL = goto(axisTHL, pos_THL + THL_step)
         if move_THL:
             print("inchworm.py THS arrived at ", pos_THS, " .")
         else:
-            x = input("inchworm.py THL failed to arrive. Try again? If no, program will exit. [y/n]")
+            x = input("inchworm.py THL failed to arrive. Try again? If no, program will exit. [y/n]: ")
             if x=="n":
                 return
         
