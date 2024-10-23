@@ -127,7 +127,7 @@ def getThetaMotorCoordinates(eggName,theta):
     
 
 
-def aimAt(laserName="DEBUG",eggName=None, theta=None, phi=None, sOff=0, lOff=0):
+def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
     #assume we have phi and theta in degrees
 
     #TODO: sanity check the inputs
@@ -162,7 +162,7 @@ if __name__ == "__main__":
         #assume (eggDbName,theta,phi).
         #TODO:  specify which laser (port,axis), and which egg?  Or should we mate those permanently in the db?
         #get its port from the db
-        eggName=sys.argv[1]
+        laserName=sys.argv[1]
         theta=sys.argv[2]
         phi=sys.argv[3]
         shortOffset=0
@@ -171,7 +171,7 @@ if __name__ == "__main__":
         #assume (eggDbName,theta,phi).
         #TODO:  specify which laser (port,axis), and which egg?  Or should we mate those permanently in the db?
         #get its port from the db
-        eggName=sys.argv[1]
+        laserName=sys.argv[1]
         theta=sys.argv[2]
         phi=sys.argv[3]
         shortOffset=sys.argv[4]
@@ -182,4 +182,4 @@ if __name__ == "__main__":
         sys.exit()
     #if wrong arguments, exit with explanation
 
-    aimAt("DEBUG",eggName,theta,phi,shortOffset,longOffset)
+    aimAt(laserName,laserName,theta,phi,shortOffset,longOffset)
