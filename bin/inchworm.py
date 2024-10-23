@@ -64,13 +64,13 @@ def inchworm(axis, THS_start=None, THL_start=None):
         
         move_THL, pos_THL = goto(axisTHL, pos_THL + THL_step)
         if move_THL:
-            print("inchworm.py THS arrived at ", pos_THS, " .")
+            print("inchworm.py THS arrived at ", pos_THL, " .")
         else:
             x = input("inchworm.py THL failed to arrive. Try again? If no, program will exit. [y/n]: ")
             if x=="n":
                 return
         
-        x = input("Perform another inch? [y/n]")
+        x = input("Perform another inch? [y/n]: ")
         inch = x
     
     return
