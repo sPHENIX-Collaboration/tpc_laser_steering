@@ -25,7 +25,7 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
     #if no numbers input, then use low and high bound
     #otherwise return
     if (is_number(lb) and is_number(hb)):
-        low=float(lb))
+        low=float(lb)
         high=float(hb)
     elif (lb==None) and (hb==None):
         low=readback(ADDR['HARD_STOP1'])
