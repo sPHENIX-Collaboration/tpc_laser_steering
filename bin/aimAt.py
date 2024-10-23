@@ -178,7 +178,7 @@ if __name__ == "__main__":
         longOffset=sys.argv[5]
     else:
         print("NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
-        print("   ./steetTo.py egg_name theta phi")
+        print("   ./aimAt.py axis theta phi")
         sys.exit()
     #if wrong arguments, exit with explanation
 
