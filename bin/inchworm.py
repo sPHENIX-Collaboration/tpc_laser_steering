@@ -55,14 +55,18 @@ def inchworm(axis, THS_start=None, THL_start=None):
     while inch=="y":
 
         move_THS, pos_THS = goto(pos_THS + THS_step)
-        if not move_THS:
-            x = input("Try again? If no, program will exit. [y/n]")
+        if move_THS:
+            print("inchworm.py THS arrived at ", pos_THS, " .")
+        else:
+            x = input("inchworm.py THS failed to arrive. Try again? If no, program will exit. [y/n]")
             if x=="n":
                 return
         
         move_THL, pos_THL = goto(pos_THL + THL_step)
-        if not move_THL:
-            x = input("Try again? If no, program will exit. [y/n]")
+        if move_THL:
+            print("inchworm.py THS arrived at ", pos_THS, " .")
+        else:
+            x = input("inchworm.py THL failed to arrive. Try again? If no, program will exit. [y/n]")
             if x=="n":
                 return
         

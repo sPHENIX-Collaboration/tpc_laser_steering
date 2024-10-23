@@ -25,25 +25,24 @@ def _reverseLookup(dict,val):
     return key  
 
 
-def wiggle(axis, range, loop=True):
-
-
+def wiggle(axis, step):
 
     position = readback(ADDR['FPOS'])
     dest1 = position - step
-    dest2 = position + step
+    dest2 = position + 2*step
     
     goto(axis, dest1)
+    x = input("---wiggle.py forward performed.  At position ", readback(ADDR['FPOS']), ".  Wiggle other direction? [y/n]")
+    if x == "n":
+        return
     goto(axis, dest2)
+    print("---wiggle.py back performed.  At position ", readback(ADDR['FPOS']), ".")
 
     return
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        axis=sys.argv[1]
-        wiggle(axis)
-    elif len(sys.argv) == 3:
+    if len(sys.argv) == 3:
         axis=sys.argv[1]
         step=sys.argv[2]
         wiggle(axis, step)
