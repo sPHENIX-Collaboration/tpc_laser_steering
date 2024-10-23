@@ -16,10 +16,10 @@ def inchworm(axis, THS_start=None, THL_start=None):
 
     # define reasonable step sizes (fraction of full range) based on geometry of theta mirrors 
     # THL displaced from rotation axis by 5.5-6mm (from Dan/Kristina), 3mm mirror width and 1mm beam spot
-    # to keep beam fully on mirror for each step, use 2mm step size, s=r*TH --> THL=0.33deg=0.006 rotations
+    # to keep beam fully on mirror for each step, use 2mm step size, s=r*TH --> THL=0.33rad=0.053 rotations
     # maximum THL step size moves beam spot off mirror (4mm --> THL=0.66deg=0.012 rotations)
-    THL_step=0.006
-    THS_step=-0.003
+    THL_step=0.053
+    THS_step=-0.026
     inch="y"
 
     axisTHS = axis + "_TH_S"
@@ -77,12 +77,14 @@ def inchworm(axis, THS_start=None, THL_start=None):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 3:
-        THS_i=sys.argv[1]
-        THL_i=sys.argv[2]
-        inchworm(THS_i, THL_i)
-    elif len(sys.argv) == 1:
-        inchworm()
+    if len(sys.argv) == 4:
+        axis=sys.argv[1]
+        THS_i=sys.argv[2]
+        THL_i=sys.argv[3]
+        inchworm(axis, THS_i, THL_i)
+    elif len(sys.argv) == 2:
+        axis=sys.argv[1]
+        inchworm(axis)
     else:
         print("wiggleAxis.py failed.  Incorrect number of arguments.")
         sys.exit()
