@@ -31,11 +31,16 @@ def wiggle(axis, step):
     dest1 = position - step
     dest2 = position + 2*step
     
-    goto(axis, dest1)
+    s1, pos1 = goto(axis, dest1)
+    if not s1:
+        print("FAIL wiggle.py move forward")
     x = input("---wiggle.py forward performed.  At position ", readback(ADDR['FPOS']), ".  Wiggle other direction? [y/n]")
     if x == "n":
         return
-    goto(axis, dest2)
+    s2, pos2 = goto(axis, dest2)
+    if not s2:
+        print("FAIL wiggle.py move backward")
+    
     print("---wiggle.py back performed.  At position ", readback(ADDR['FPOS']), ".")
 
     return
