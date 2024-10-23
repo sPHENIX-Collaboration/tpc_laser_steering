@@ -7,7 +7,7 @@ varTuning = {
 #move_tolerance (how far from destination we are allowed to be without marking it FAIL)
 'Phi':[0.01,0.001],
 'ThetaS':[0.01,0.001],
-'ThetaL':[0.02,0.001],
+'ThetaL':[0.01,0.001],
 #'Attenuator':[0.02,0.005],
 'Attenuator':[0.000,0.00035],
 'Dogleg':[0.01,0.001]
