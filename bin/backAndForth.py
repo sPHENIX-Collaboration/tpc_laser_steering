@@ -66,4 +66,5 @@ if __name__ == "__main__":
         backAndForth(axis, low, high)
     else:
         print("backAndForth.py failed.  Incorrect number of arguments.")
+        print("     ./backAndForth.py [axis] [lb] [hb] loop")
         sys.exit()
