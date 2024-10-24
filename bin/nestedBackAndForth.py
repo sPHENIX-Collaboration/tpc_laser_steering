@@ -30,17 +30,21 @@ def nestedBackAndForth(axis, lb, hb, amp_diff, steps):
 
     span = high-low
     midpt = span/2
+    stop=False
 
     try:
-        while True:
+        while stop==False:
             for i in range(numSteps):
                 
                 lb_new = low+i*amp
                 hb_new = high-i*amp
                 print("Performing nestedBackAndForth.py iteration ", i, ": ")
                 backAndForth(axis, lb_new, hb_new, False)
+                if stop:
+                    return
 
     except KeyboardInterrupt:
+        stop=True
         pass
 
     return
