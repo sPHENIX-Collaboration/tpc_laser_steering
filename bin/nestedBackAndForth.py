@@ -34,6 +34,7 @@ def nestedBackAndForth(axis, lb, hb, amp_diff, steps):
                 
                 lb_new = low+i*amp
                 hb_new = high-i*amp
+                print("Performing nestedBackAndForth.py iteration ", i, ": ")
                 backAndForth(axis, lb_new, hb_new, False)
 
     except KeyboardInterrupt:
