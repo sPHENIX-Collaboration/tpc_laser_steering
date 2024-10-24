@@ -25,8 +25,8 @@ def nestedBackAndForth(axis, lb, hb, amp_diff, steps):
         amp=float(amp_diff)
         numSteps=float(steps)
 
-    range = hb-lb
-    midpt = range/2
+    span = high-low
+    midpt = span/2
 
     try:
         while True:
