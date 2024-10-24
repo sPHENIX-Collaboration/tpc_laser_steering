@@ -154,6 +154,8 @@ def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
     print("aimAt attempted:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,phiCoord,laserName,thetaS,laserName,thetaL))
     print("aimAt returns:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,retPh,laserName,retThS,laserName,retThL))
 
+    return
+
 
 
 if __name__ == "__main__":
@@ -178,7 +180,7 @@ if __name__ == "__main__":
         longOffset=sys.argv[5]
     else:
         print("NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
-        print("   ./aimAt.py axis theta phi")
+        print("   ./aimAt.py [axis] [theta] [phi]")
         sys.exit()
     #if wrong arguments, exit with explanation
 
