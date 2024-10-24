@@ -32,26 +32,61 @@ def is_number(s):
     except ValueError:
         return False
     
-def countBounces(theta,phi):
+def countBounces(theta,phi,axisPhi=0):
     # count the number of bounces in the light pipe's x direction and y-direction,
     # also report back if the desired theta is very close to exiting at an edge.
     # if we are at an edge, we will need to do some special calculation/steering
 
     # rcc:  for now, assume we are not close to an edge, and assume zero bounces
 
+    #hard code the dimensions of the light pipe
+    lightpipeLength=150
+    lightpipeSide=5
+    quartzRefraction=1.4997 #at 265nm, from Bob's data
+    airRefraction=1.0
+    #todo: this will be bench-dependent
+    lightpipeXaxisAngleWrtPhi0=axisPhi
+ 
+    #compute the total transverse distance we will travel in the pipe
+    #snell's law:  n1sin(th1)=n2sin(th2)
+    #hence th2=asin(n1/n2*sin(th1)
+    beamAngleWrtZ=asin(airRefraction/quartzRefraction*sin(theta))
+    beamLongitudinalPath=lightpipeLength
+    beamTransversePath=beamLongitudinalPath*tan(beamAngleWrtZ)
 
+    #compute the total distance in X and Y
+    beamPathX=abs(beamTransversePath*cos(phi-axisPhi))
+    beamPathY=abs(beamTransversePath*sin(phi-axisPhi))
 
-    return False,0,0
+    #todo: starting point should be something we can calibrate based on theta and phi offsets
+    startX=2.5
+    startY=2.5
 
-def debounce(phi, bouncesX, bouncesY):
+    floatBouncesX=(beamPathX+startX)/lightpipeSide)
+    floatBouncesY=(beamPathY+startY)/lightpipeSide)
+    nBouncesX=floor(floatBouncesX)
+    nBouncesY=floor(floatBouncesY)
+
+    #to consider: at each reflection, see where we are on the other axis, see if we are close to a relfection there as well, which would mean we are at a corner.  the more corners we hit, the worse it is
+    # we also know there are plastic beads and a glue seam to be avoided.
+
+    return False,nBouncesX,nBouncesY
+
+def debounce(phi, axisPhi, nBouncesX, nBouncesY):
+    pipePhi=phi-axisPhi
     #I might have gotten X and Y confused...
-    if (bouncesX % 2 == 1): #if we bounce against X=0 once, we get reflected about the Y axis
-        phi=180-phi
-    if (bouncesY % 2 == 1): #if we bounce against Y=0 once, we get reflected about the X axis
-        phi=-phi
-        
-    return phi
-        
+    if (nBouncesX % 2 == 1): #if we bounce against X=0 once, we get reflected about the Y axis
+        pipePhi=180-pipePhi
+    if (nBouncesY % 2 == 1): #if we bounce against Y=0 once, we get reflected about the X axis
+        pipePhi=-pipePhi
+    phi=pipePhi+axisPhi    
+    return 0
+
+def getQuartzAngle(eggName,phi):
+    #look up the position that points at phi0 (=pointing outward(or inward?  ask Charles) along the radial spoke)
+    #TODO: s,lb=kfDatabase.readVar(mainDb,eggName+"_PH/quartzPhi")
+    return 0
+
 def getPhiMotorCoordinate(eggName,phi):
     #look up the position that points at phi0 (=pointing outward(or inward?  ask Charles) along the radial spoke)
     #TODO: phi0=kfDatabase.readVar(mainDb,eggName+"_PH/phi0")
@@ -74,12 +109,17 @@ def getPhiMotorCoordinate(eggName,phi):
     return phiCoord
 
 def getThetaMotorCoordinates(eggName,theta):
+    #compute the short and long mirror coordinates corresponding to this theta position
+
+    #get the position corresponding to upstream
     s,thl0=kfDatabase.readVar(mainDb,eggName+"_TH_L/upstream")
     s,ths0=kfDatabase.readVar(mainDb,eggName+"_TH_S/upstream")
+    #get the mechanical limits of the long mirror (short mirror can spin freely)
     s,lb=kfDatabase.readVar(mainDb,eggName+"_TH_L/lowbound")
     s,hb=kfDatabase.readVar(mainDb,eggName+"_TH_L/highbound")
 
-    #parameters from dan's fit:
+    #parameters from dan's fit for the position of the mirror arm,
+    #in degrees relative to ____, to get a laser angle of 'theta' into the TPC.
     p=[0]*4
     p[0]=9.67
     p[1]=0.689
@@ -132,28 +172,55 @@ def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
 
     #TODO: sanity check the inputs
 
-    tooCloseToEdge,bouncesX, bouncesY=countBounces(phi,theta)
+    #get our phi motor position:
+    if(phi!=None):
+        #get the quartz angle with respect to the phi origin so we can count bounces correctly
+        quartzPhi=getQuartzAngle(eggName)
+        #see how much we bounce
+        if(theta!=None):
+            tooCloseToEdge,bouncesX, bouncesY=countBounces(phi,theta)
+        else:
+            bouncesX=0
+            bouncesY=0
+        #correct the requested phi angle for the number of bounces in each direction
+        debouncedPhi=debounce(phi, quartzPhi,bouncesX,bouncesY)
+        #and finally get the phi coordinate that gets that phi angle
+        phiCoord=getPhiMotorCoordinate(eggName,debouncedPhi)
+
+    #get our theta motor position
+    if(theta!=None):
+        thetaS,thetaL=getThetaMotorCoordinates(eggName,theta)
+
 
     #TODO:
     # if tooCloseToEdge:
     #     doExtraCalculations to find the offset that gets us a safe trajectory?
     # or maybe we want the ability to steer /along/ the exit facet edge, for calibration purposes?
-
-    debouncedPhi=debounce(phi, bouncesX,bouncesY)
-
+ 
     #TODO: see if this is in the lb-hb range of the phi motor, and add a bounce if it is not
     
-    phiCoord=getPhiMotorCoordinate(eggName,debouncedPhi)
-    thetaS,thetaL=getThetaMotorCoordinates(eggName,theta)
-
-    print("(%s,%s)==>Move %s(%s) to:(p%s,ts%s,tl%s)"%(theta,phi,laserName,eggName,phiCoord,thetaS,thetaL))
-
-    retPh=goto(laserName+"_PH",phiCoord)
-    retThS=goto(laserName+"_TH_S",thetaS+float(sOff))
-    retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
-    print("aimAt attempted:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,phiCoord,laserName,thetaS,laserName,thetaL))
-    print("aimAt returns:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,retPh,laserName,retThS,laserName,retThL))
-
+    if (theta!=None and phi!=None):
+        #moving both
+        print("aimAt(%s,%s)==>Move %s(%s) to:(p%s,ts%s,tl%s)"%(theta,phi,laserName,eggName,phiCoord,thetaS,thetaL))
+        print("aimAt(%s,%s) reports nBounces (x%s,y%s)"%(bouncesX,bouncesY))
+        retPh=goto(laserName+"_PH",phiCoord)
+        retThS=goto(laserName+"_TH_S",thetaS+float(sOff))
+        retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
+        print("aimAt attempted:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,phiCoord,laserName,thetaS,laserName,thetaL))
+        print("aimAt returns:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,retPh,laserName,retThS,laserName,retThL))
+    if (theta!=None and phi==None):
+        #only moving theta
+        print("aimAt(%s,nophi)==>Move %s(%s) to:(ts%s,tl%s)"%(theta,laserName,eggName,thetaS,thetaL))
+        retThS=goto(laserName+"_TH_S",thetaS+float(sOff))
+        retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
+        print("aimAt attempted:  %s_TH_S:%s  %s_TH_L:%s"%(laserName,thetaS,laserName,thetaL))
+        print("aimAt returns:  %s_TH_S:%s  %s_TH_L:%s"%(laserNameretThS,laserName,retThL))
+    if (theta==None and phi!=None):
+        #only moving phi
+        print("aimAt(notheta,%s)==>Move %s(%s) to:(p%s)"%(phi,laserName,eggName,phiCoord))
+        retPh=goto(laserName+"_PH",phiCoord)
+        print("aimAt attempted:  %s_PH:%s"%(laserName,phiCoord))
+        print("aimAt returns:  %s_PH:%s"%(laserName,retPh))
 
 
 if __name__ == "__main__":
