@@ -29,14 +29,13 @@ def nestedBackAndForth(axis, lb, hb, amp_diff, steps):
     return
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        axis=sys.argv[1]
-        nestedBackAndForth(axis)
-    elif len(sys.argv) == 4:
+    if len(sys.argv) == 6:
         axis=sys.argv[1] 
         low=sys.argv[2]
         high=sys.argv[3]
-        nestedBackAndForth(axis, low, high)
+        amplitude=sys.argv[4]
+        steps=sys.argv[5]
+        nestedBackAndForth(axis, low, high, amplitude, steps)
     else:
         print("nestedBackAndForth.py failed.  Incorrect number of arguments.")
         print("     ./nestedBackAndForth.py [axis] [lb] [hb] [min amplitude] [num steps]")
