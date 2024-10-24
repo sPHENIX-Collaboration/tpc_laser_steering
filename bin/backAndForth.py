@@ -36,8 +36,9 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
 
     #unless user interrupts program by hitting keyboard
     #backAndForth will now loop between the low and high bound
+    loopreal = True
     try: 
-        while loop:
+        while loopreal:
             #move to low bound
             print("----backAndForth.py moving axis ", axis, " to low bound")
             s1, val1 = goto(axis, low)
@@ -49,6 +50,8 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
             s2, val2 = goto(axis, high)
             if not s2:
                 print("backAndForth.py failed to move to high bound ", str(hb)," successfully.  Program will continue unless force quit.")
+            
+            loopreal=loop
     except KeyboardInterrupt:
         pass
 
