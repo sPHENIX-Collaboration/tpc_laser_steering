@@ -10,17 +10,30 @@ from backAndForth import backAndForth
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 import sys
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 def nestedBackAndForth(axis, lb, hb, amp_diff, steps):
+
+    if (is_number(lb) and is_number(hb)):
+        low=float(lb)
+        high=float(hb)
+        amp=float(amp_diff)
+        numSteps=float(steps)
 
     range = hb-lb
     midpt = range/2
 
     try:
         while True:
-            for i in range(steps):
+            for i in range(numSteps):
                 
-                lb_new = lb+steps*amp_diff
-                hb_new = hb-steps*amp_diff
+                lb_new = low+i*amp
+                hb_new = high-i*amp
                 backAndForth(axis, lb_new, hb_new, False)
 
     except KeyboardInterrupt:
