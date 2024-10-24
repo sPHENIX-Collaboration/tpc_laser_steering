@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 #
-# backAndForth.py can be used to continuously move back and forth between two 
+# nestedBackAndForth.py can be used to continuously move back and forth between two 
 # specified values
 
 from quickReport import readback
