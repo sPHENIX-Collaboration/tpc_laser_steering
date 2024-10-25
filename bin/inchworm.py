@@ -91,6 +91,7 @@ def inchworm(axis, finalAngle=None, startAngle=None, quiet=False):
         x = input("Perform another inch? [y/n]: ")
         inch = x
         n += 1
+        numSteps -= 1
 
     return
 
@@ -110,5 +111,6 @@ if __name__ == "__main__":
         axis=sys.argv[1]
         inchworm(axis)        
     else:
-        print("wiggleAxis.py failed.  Incorrect number of arguments.")
+        print("inchworm.py failed.  Incorrect number of arguments.  Correct usage is:")
+        print("     ./inchworm.py [axis] [endTheta] [startTheta]")
         sys.exit()
