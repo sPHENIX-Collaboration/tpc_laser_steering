@@ -9,7 +9,7 @@ varTuning = {
 'ThetaS':[0.01,0.001],
 'ThetaL':[0.00,0.001],
 #'Attenuator':[0.02,0.005],
-'Attenuator':[0.000,0.00035],
+'Attenuator':[0.000,0.001],
 'Dogleg':[0.01,0.001]
 }
 
