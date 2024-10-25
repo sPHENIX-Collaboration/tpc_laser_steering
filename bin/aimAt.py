@@ -5,7 +5,7 @@
 from goto import goto
 from changeAxisDogleg import changeAxis
 import sys
-
+import math
 
 
 # to load tty data from the db so we know which tty we want:
@@ -50,22 +50,22 @@ def countBounces(theta,phi,axisPhi=0):
     #compute the total transverse distance we will travel in the pipe
     #snell's law:  n1sin(th1)=n2sin(th2)
     #hence th2=asin(n1/n2*sin(th1)
-    beamAngleWrtZ=asin(airRefraction/quartzRefraction*sin(theta))
+    beamAngleWrtZ=math.asin(airRefraction/quartzRefraction*math.sin(theta))
     beamLongitudinalPath=lightpipeLength
-    beamTransversePath=beamLongitudinalPath*tan(beamAngleWrtZ)
+    beamTransversePath=beamLongitudinalPath*math.tan(beamAngleWrtZ)
 
     #compute the total distance in X and Y
-    beamPathX=abs(beamTransversePath*cos(phi-axisPhi))
-    beamPathY=abs(beamTransversePath*sin(phi-axisPhi))
+    beamPathX=abs(beamTransversePath*math.cos(phi-axisPhi))
+    beamPathY=abs(beamTransversePath*math.sin(phi-axisPhi))
 
     #todo: starting point should be something we can calibrate based on theta and phi offsets
     startX=2.5
     startY=2.5
 
-    floatBouncesX=(beamPathX+startX)/lightpipeSide)
-    floatBouncesY=(beamPathY+startY)/lightpipeSide)
-    nBouncesX=floor(floatBouncesX)
-    nBouncesY=floor(floatBouncesY)
+    floatBouncesX=(beamPathX+startX)/lightpipeSide
+    floatBouncesY=(beamPathY+startY)/lightpipeSide
+    nBouncesX=math.floor(floatBouncesX)
+    nBouncesY=math.floor(floatBouncesY)
 
     #to consider: at each reflection, see where we are on the other axis, see if we are close to a relfection there as well, which would mean we are at a corner.  the more corners we hit, the worse it is
     # we also know there are plastic beads and a glue seam to be avoided.
@@ -214,7 +214,7 @@ def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
         retThS=goto(laserName+"_TH_S",thetaS+float(sOff))
         retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
         print("aimAt attempted:  %s_TH_S:%s  %s_TH_L:%s"%(laserName,thetaS,laserName,thetaL))
-        print("aimAt returns:  %s_TH_S:%s  %s_TH_L:%s"%(laserNameretThS,laserName,retThL))
+        print("aimAt returns:  %s_TH_S:%s  %s_TH_L:%s"%(laserName,retThS,laserName,retThL))
     if (theta==None and phi!=None):
         #only moving phi
         print("aimAt(notheta,%s)==>Move %s(%s) to:(p%s)"%(phi,laserName,eggName,phiCoord))
