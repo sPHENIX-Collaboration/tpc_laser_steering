@@ -43,7 +43,8 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
         print("----backAndForth.py moving axis ", axis, " to low bound")
         s1, val1 = goto(axis, low)
         if not s1:
-            x = input("backAndForth.py failed to move to low bound ", str(lb)," successfully.  Yes or no to continue? [y/n]: ")
+            print("backAndForth.py failed to move to low bound ", str(lb)," successfully.")
+            x = input("Yes or no to continue? [y/n]: ")
             if x == "y":
                 clearDogleg()
             else:
@@ -53,7 +54,8 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
         print("----backAndForth.py moving axis ", axis, " to high bound")
         s2, val2 = goto(axis, high)
         if not s2:
-            x = input("backAndForth.py failed to move to high bound ", str(hb)," successfully.  Yes or no to continue? [y/n]: ")
+            print("backAndForth.py failed to move to high bound ", str(hb)," successfully.")
+            x = input("Yes or no to continue? [y/n]: ")
             if x == "y":
                 clearDogleg()
             else:
