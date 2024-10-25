@@ -59,5 +59,5 @@ if __name__ == "__main__":
         nestedBackAndForth(axis, low, high, amplitude, steps)
     else:
         print("nestedBackAndForth.py failed.  Incorrect number of arguments.")
-        print("     ./nestedBackAndForth.py [axis] [lb] [hb] [min amplitude] [num steps]")
+        print("     ./nestedBackAndForth.py [axis] [lb] [hb] [amp step (left & right))] [num steps]")
         sys.exit()
