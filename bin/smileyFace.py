@@ -8,26 +8,23 @@ from changeAxisDogleg import changeAxis
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 import sys
 
-def leftEye():
+def draw(axis, range, duration):
 
-
-    return
-
-
-
-def rightEye():
-    
-
-
-    return
-
-def smile():
     
 
     return
 
 
-def smileyFace():
+def smileyFace(axis):
 
 
     return
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        smileyFace()
+    else:
+        print("smileyFace.py NOT EXECUTED.  Correct usage is:")
+        print("     ./smileyFace.py [axis]")
+        sys.exit()
