@@ -6,6 +6,7 @@
 from quickReport import readback
 from goto import goto
 from changeAxisDogleg import changeAxis
+from clearDogleg import clearDogleg
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 import sys
 
@@ -42,13 +43,21 @@ def backAndForth(axis, lb=None, hb=None, loop=True):
         print("----backAndForth.py moving axis ", axis, " to low bound")
         s1, val1 = goto(axis, low)
         if not s1:
-            print("backAndForth.py failed to move to low bound ", str(lb)," successfully.  Program will continue unless force quit.")
+            x = input("backAndForth.py failed to move to low bound ", str(lb)," successfully.  Yes or no to continue? [y/n]: ")
+            if x == "y":
+                clearDogleg()
+            else:
+                return
         
         #move to high bound
         print("----backAndForth.py moving axis ", axis, " to high bound")
         s2, val2 = goto(axis, high)
         if not s2:
-            print("backAndForth.py failed to move to high bound ", str(hb)," successfully.  Program will continue unless force quit.")
+            x = input("backAndForth.py failed to move to high bound ", str(hb)," successfully.  Yes or no to continue? [y/n]: ")
+            if x == "y":
+                clearDogleg()
+            else:
+                return
         
         loopreal=loop
 
