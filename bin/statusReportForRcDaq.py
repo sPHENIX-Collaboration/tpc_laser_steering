@@ -10,6 +10,7 @@
 
 from quickAssign import sendcommand,writeXCD2
 from quickReport import readback
+import sys
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 from variableDictionaryXCD2 import varStatusValues as STAT
 from variableDictionaryXCD2 import varUniqueID as AXISID
