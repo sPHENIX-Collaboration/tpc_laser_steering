@@ -1,3 +1,13 @@
+#!/usr/bin/python3
+
+# This is designed to read back the status of all axes for recording in RCDAQ
+# Right now, this only reads back the current active axis
+# TODO:  We do not attempt to change axis currently.  We need to make sure this
+# does not cause conflicts with commands sent to the controller.
+# Alternatively, instead of running this from ssh, this command could run at the
+# end of every goto/motion, cat'ing into a file, and the resulting file could be
+# cat'd by the ssh command instead.
+
 from quickAssign import sendcommand,writeXCD2
 from quickReport import readback
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
@@ -16,6 +26,7 @@ def _reverseLookup(dict,val):
     return key  
 
 def reportAllAxisDummyTest():
+    #todo:  with open("temp/last_axis_data_0_0",w)
     print("1 hello\n1\n2 world\n3\n4\n5")
     return
 
@@ -41,14 +52,16 @@ def reportAllAxis(axis):
     repData[10]=repData2[0]-repData[9]
     #set our position to the latest one (slightly more correct)
     repData[9]=repData2[0]
-    
+    #todo: filename="temp/last_axis_data_%s_%s"%(channel,axis)
+    #todo:  with open(filename,w):
     print("data format version for our own future sanity as we develop this: 0\n0");
+    #todo:  with open(filename,a):
+    #and tab eeeeeeverything in.  phaw.
     if (not repOk):
-        print("Readback status:  axis %s readback failed. (any lost items are = -1000)."
-                  %axis)
-        print("0")
+        print("Readback status:  axis %s readback failed. (any lost items are = -1000).\n0"%axis)
+
     else:
-        print("Readback status:  axis %s readback successful.")
+        print("Readback status:  axis %s readback successful.\n1")
         print("1")
 
     #todo:  get the calibrated phi position in TPC coordinates and display the local phi wrt that.  Or wrt 'pointing inward' maybe, since that respects the symmetries
@@ -92,6 +105,7 @@ if __name__ == "__main__":
         #if there's an argument, run the dummy instead:
         reportAllAxisDummyTest()
     else:
+        print("for automated recognition that the call failed,report version=-1 and status=0\n-1\n0")
         print("NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
         print("   ./statusReportForRcDaq.py testingonly")
         print("   ./statusReportForRcDaq.py")
