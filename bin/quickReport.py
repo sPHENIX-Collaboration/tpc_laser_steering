@@ -39,7 +39,7 @@ def reportXCD2( argv ):#by default, we ask for the variables from the current ac
 def reportXCD2specifyAxis(axis, argv ):
     if argv:
         if len(argv) > 10:
-            print("reportXCD2specifyAxis: Too many variables trying to be assigned.  Max 10 variables can be assigned at once.")
+            print("reportXCD2specifyAxis: Too many variables trying to be requested.  Max 10 variables can be assigned at once.")
             return False, 0
 
         var_names = argv
@@ -101,7 +101,7 @@ def reportXCD2noAxis( argv ): #reports the requested argument list using the cur
 def reportXCD2noAxisPort(target_port, argv ): #reports the requested argument list from the requested port, without specifying an axis (hence using current axis)
     if argv:
         if len(argv) > 10:
-            print("Too many variables trying to be assigned.  Max 10 variables can be assigned at once.")
+            print("Too many variables trying to be requested.  Max 10 variables can be requested at once.")
             return False, 0
 
         var_names = argv
