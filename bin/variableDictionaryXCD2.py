@@ -68,7 +68,12 @@ varInterfaceAddresses= {
 'TURNS':'V11',
 'STATUS':'V19',
 'FPOS':'FPOS',
-'ENR':'ENR'
+'ENR':'ENR',
+'KP':'KP',
+'KV':'KV',
+'LI':'LI',
+'FRP':'FRP',
+'FRN':'FRN'
 }
 
 
