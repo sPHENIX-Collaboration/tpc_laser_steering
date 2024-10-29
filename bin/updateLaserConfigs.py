@@ -16,6 +16,7 @@ sleeptime=0.5 #in seconds
 debug=False
 portsDb="xcd2_ports.kfdb"
 PORTFILE="XCD_current_port"
+logFile=""
 
 
 def writeToFile( filename ):
@@ -54,3 +55,11 @@ def readFromFile( filename ):
             writeXCD2([ADDR[varName], varVal])
         
     return True
+
+
+
+def updateLaserConfigs():
+    return
+
+if __name__ == "__main__":
+    updateLaserConfigs()
