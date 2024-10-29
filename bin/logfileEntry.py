@@ -32,7 +32,7 @@ def logfileEntry(dummyName=None, dummyVal=None):
                 # Logs the change to the log for a change
                 file.write('\'%s\':%s, ' % (varName, trueVal[0]))
         
-        file.write('\'statusCODE\':%s}' % readback(ADDR['STATUS']))
+        file.write('\'statusCODE\':%s } \n' % readback(ADDR['STATUS']))
 
     return
 
