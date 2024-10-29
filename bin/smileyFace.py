@@ -5,18 +5,27 @@
 from quickReport import readback
 from goto import goto
 from changeAxisDogleg import changeAxis
+from backAndForth import backAndForth
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 import sys
+import time
 
-def draw(axis, range, duration):
-
-    
-
-    return
-
+lb_smile_9N = 0
+hb_smile_9N = 0.25
+eye1_9N = 
+eye2_9N = 
 
 def smileyFace(axis):
 
+    phiAxis = axis+"_PH"
+    thsAxis = axis+"_TH_S"
+    thlAxis = axis+"_TH_L"
+
+    didChange = changeAxis()
+    backAndForth(phiAxis, )
+    didChange = changeAxis()
+    goto()
+    backAndForth(thsAxis)
 
     return
 
