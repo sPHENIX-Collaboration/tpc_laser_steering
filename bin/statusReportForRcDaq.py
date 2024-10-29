@@ -8,6 +8,17 @@
 # end of every goto/motion, cat'ing into a file, and the resulting file could be
 # cat'd by the ssh command instead.
 
+################### NOTES ABT RCDAQ ####################
+# for rcdaq file, rcdaq_device_file is command that pulls text from a file
+# e.g. for the digitizers, configuration file is created and captured using this function
+# grab entire text file once created and dump into datastream as ascii
+# rcdaq_device_filenumbers - checks files for numbers (writes into packet of ADC values)
+#
+# eventually write out once as human readable text file
+# all we have to do is make a command that takes values and dumps into a file
+# or we can make a network http call that pulls those values with pi serving those values
+# #######################################################
+
 from quickAssign import sendcommand,writeXCD2
 from quickReport import readback
 import sys
