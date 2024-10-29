@@ -58,8 +58,8 @@ def readFromFile( filename ):
 
 
 
-def updateLaserConfigs():
-    return
+# def updateLaserFiles():
+#     return
 
-if __name__ == "__main__":
-    updateLaserConfigs()
+# if __name__ == "__main__":
+#     updateLaserFiles()
