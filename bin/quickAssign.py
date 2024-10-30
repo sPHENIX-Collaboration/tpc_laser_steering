@@ -9,8 +9,8 @@ import sys
 import struct
 
 debug=False
-sleeptime=0.1
-timeout=10
+sleeptime=0.01
+timeout=5
 
 
 def sendcommand(com,arg):

@@ -60,6 +60,10 @@ def homePhi(referenceEgg=None):
         print("goto:  Check status:");
     status=STAT['BUSY']
     while status==STAT['BUSY']:
+        #log laser parameters after move and report final position and success
+        logBool = logfileEntry()
+        if not logBool:
+            print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
         status=readback(ADDR['STATUS'])
         hardstop1=readback(ADDR['HARD_STOP1'])
         hardstop2=readback(ADDR['HARD_STOP2'])

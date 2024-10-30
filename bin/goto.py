@@ -206,6 +206,10 @@ def gotoVettedQuiet(destination,COMM,OLBool):
     hardstop2=readback(ADDR['HARD_STOP2'])
     t1=time.time()
     while status==STAT['BUSY']  and (time.time()-t1) < timeout:
+        #log laser parameters after move and report final position and success
+        logBool = logfileEntry()
+        if not logBool:
+            print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
         turns=readback(ADDR['TURNS'])
         position=readback(ADDR['FPOS'])
         oldposition=position
@@ -362,6 +366,8 @@ def goto( axisName=None, destination=None, OLBool=False):
             print("PANIC.  Residual is a number not between -1 and +1 after execution and reduction. Residual=%s"%(residual))
             sys.exit()
 
+    # log laser status in logfile after move and recalculation of residual
+    # to get correct value for position
     logBool = logfileEntry()
     if not logBool:
         print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
