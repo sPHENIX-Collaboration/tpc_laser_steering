@@ -32,7 +32,7 @@ def logfileEntry():
                 # Logs the change to the log for a change
                 file.write('\"%s\":%s, ' % (varName, trueVal[0]))
         
-        file.write('\n')
+        file.write('\"nothing\":0} \n')
 
     return True
 
