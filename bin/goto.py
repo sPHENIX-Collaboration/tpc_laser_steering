@@ -38,7 +38,7 @@ varTuning={
     
 min_distance=0.1 #in rotations
 move_tolerance=0.001 #in rotations.  causes an error if it did not get this close in the final move.
-sleeptime=0.2 #in seconds
+sleeptime=0.05 #in seconds
 timeout=10 #in seconds
 debug=False
 portsDb="xcd2_ports.kfdb"
