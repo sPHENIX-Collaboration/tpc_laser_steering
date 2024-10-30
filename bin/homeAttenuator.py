@@ -2,6 +2,7 @@
 
 from quickAssign import sendcommand, writeXCD2
 from quickReport import readback
+from logfileEntry import logfileEntry
 import sys
 import time
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
@@ -48,6 +49,10 @@ def homeAttenuator(referenceEgg):
 
     writeXCD2([ADDR['HOME'],-999])
     sendcommand(COMM['HOME'],0) # this sleeps until it sees the status change from new_command
+    # log when new command is entered
+    logBool = logfileEntry()
+    if not logBool:
+        print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
 
     #monitor the controller position and report at intervals of sleeptime
     if debug:
@@ -72,7 +77,10 @@ def homeAttenuator(referenceEgg):
     
     
     
-    #report final position and success
+    #log laser parameters after move and report final position and success
+    logBool = logfileEntry()
+    if not logBool:
+        print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
     status=readback(ADDR['STATUS'])
     lb=readback(ADDR['HARD_STOP1'])
     hb=readback(ADDR['HARD_STOP2'])

@@ -2,6 +2,7 @@
 
 from quickAssign import sendcommand, writeXCD2
 from quickReport import readback
+from logfileEntry import logfileEntry
 import sys
 import time
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
@@ -45,8 +46,8 @@ def homeThetaS(referenceEgg=None):
 
     dummyHome=-1000
     writeXCD2([ADDR['HOME'],dummyHome]) #set the current POSI value to nonsense.
-
     sendcommand(COMM['HOME'],0) # this sleeps until it sees the status change from new_command
+
 
     #monitor the controller position and report at intervals of sleeptime
     if debug:
@@ -76,6 +77,12 @@ def homeThetaS(referenceEgg=None):
 
     #now do it again.  if home moves by exactly +1, we know it is real and reliable.
     sendcommand(COMM['HOME'],0) # this sleeps until it sees the status change from new_command
+
+    # log when new command is entered
+    logBool = logfileEntry()
+    if not logBool:
+        print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
+    
     status=STAT['BUSY']
     print("homeThetaS:  second pass.  Defined home is 0.0")
     while status==STAT['BUSY']:
@@ -91,7 +98,7 @@ def homeThetaS(referenceEgg=None):
     #loop until controller busy flag is cleared
 
 
-    #report final position and success
+    # perform final calculations to set home and hard stops as desired
     if debug:
         print ("homeThetaS: finishing up.  check status and readback:")
 
@@ -100,6 +107,13 @@ def homeThetaS(referenceEgg=None):
     writeXCD2([ADDR['FPOS'], position-home])
     writeXCD2([ADDR['HARD_STOP1'], -1.0])
     writeXCD2([ADDR['HARD_STOP2'], 1.0])
+
+    # log laser parameters after move
+    logBool = logfileEntry()
+    if not logBool:
+        print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
+
+    #report final position and success
     lb=readback(ADDR['HARD_STOP1'])
     hb=readback(ADDR['HARD_STOP2'])
     position=readback(ADDR['FPOS'])   

@@ -4,6 +4,7 @@ import sys
 import os
 from quickAssign import writeXCD2
 from quickReport import reportXCD2
+from logfileEntry import logfileEntry
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 
 # to load tty data from the db so we know which tty we want:
@@ -16,10 +17,13 @@ sleeptime=0.5 #in seconds
 debug=False
 portsDb="xcd2_ports.kfdb"
 PORTFILE="XCD_current_port"
-logFile=""
 
 
 def writeToFile( filename ):
+
+    logBool = logfileEntry()
+    if not logBool:
+        return False
 
     with open(filename, "w") as file:
         # go thru varDict
@@ -30,7 +34,7 @@ def writeToFile( filename ):
 
             if check==False:
                 print("CRITICAL FAILURE. Communication error.")
-                sys.exit()
+                return False
         
             if debug:
                 print("_readback result: ", trueVal[0])
@@ -39,7 +43,7 @@ def writeToFile( filename ):
             file.write('%s %s\n' % (varName, trueVal[0]))
 
 
-    return 
+    return True
 
 
 def readFromFile( filename ):

@@ -12,7 +12,7 @@ import kfDatabase
 debug=False
 logFile="masterLog"
 
-def logfileEntry(dummyName=None, dummyVal=None):
+def logfileEntry():
 
     with open(logFile, "a") as file:
         file.write('{')
@@ -24,7 +24,7 @@ def logfileEntry(dummyName=None, dummyVal=None):
 
                 if check==False:
                     print("CRITICAL FAILURE. Communication error.")
-                    sys.exit()
+                    return False
             
                 if debug:
                     print("_readback result: ", trueVal[0])
@@ -34,7 +34,7 @@ def logfileEntry(dummyName=None, dummyVal=None):
         
         file.write('\'statusCODE\':%s } \n' % readback(ADDR['STATUS']))
 
-    return
+    return True
 
 
 if __name__ == "__main__":

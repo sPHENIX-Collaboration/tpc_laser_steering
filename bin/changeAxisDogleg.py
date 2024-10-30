@@ -107,7 +107,10 @@ def changeAxis( targetIDstr ):
     # write all variables to file corresponding to old ID before switching ports
     if oldPortExists:
         oldIDstr = _reverseLookup(AXID, oldID)
-        writeToFile('laserConfigs/' +  oldIDstr )
+        writeBool = writeToFile('laserConfigs/' +  oldIDstr )
+        if not writeBool:
+            print("Unable to write to current axis.  This shouldn't be possible but okay.")
+            return writeBool
     
     # set active port
     with open(PORTFILE, 'w') as file:
@@ -156,7 +159,7 @@ def changeAxis( targetIDstr ):
         
         
 
-    if readBool:
+    if writeBool and readBool:
         print("changeAxis: Axis changed to '%s' on port '%s'"% (targetIDstr, targetPort))
     else:
         print("FAILURE: changeAxis: Axis could not be changed to '%s' on port '%s' - variables not read from file."% (targetIDstr, targetPort))

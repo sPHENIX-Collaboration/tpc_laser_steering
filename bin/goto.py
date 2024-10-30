@@ -7,6 +7,7 @@
 from quickAssign import sendcommand,writeXCD2
 from quickReport import readback
 from changeAxisDogleg import changeAxis
+from logfileEntry import logfileEntry
 #from dummySerial import sendcommand,readback,changeAxis, writeXCD2
 import sys
 import re
@@ -360,6 +361,10 @@ def goto( axisName=None, destination=None, OLBool=False):
         if residual >1: #if that correction leaves us above the hb again, it is unreachable by defined bounds.
             print("PANIC.  Residual is a number not between -1 and +1 after execution and reduction. Residual=%s"%(residual))
             sys.exit()
+
+    logBool = logfileEntry()
+    if not logBool:
+        print("logfileEntry.py error - move not logged properly.  Use expert control before moving again.")
 
     if status==STAT['READY']:
         if abs(residual)<move_tolerance:
