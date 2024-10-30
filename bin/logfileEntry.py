@@ -30,9 +30,9 @@ def logfileEntry():
                     print("_readback result: ", trueVal[0])
             
                 # Logs the change to the log for a change
-                file.write('\'%s\':%s, ' % (varName, trueVal[0]))
+                file.write('\"%s\":%s, ' % (varName, trueVal[0]))
         
-        file.write('\'statusCODE\':%s } \n' % readback(ADDR['STATUS']))
+        file.write('\n')
 
     return True
 
