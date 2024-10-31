@@ -80,9 +80,12 @@ def parseJson(input,filename=None):
                 
     #print out the scale factors for future use, making sure to keep it in the same order as the axis data even if the header is not.
     print("order of variables is")
-    axisOrdering=next(iter(cleanAxes.values()))
-    for key in axisOrdering.keys():
-        print(key)
+    if cleanAxes.values()!=[]:
+        axisOrdering=next(iter(cleanAxes.values()))
+        for key in axisOrdering.keys():
+            print(key)
+    else:
+        print("not available because we have no benches"
     print("multiply data by 10^n (same order)")
     for key in axisOrdering.keys():
         #we only put items in cleanAxis if it was present in the precision dictionary, so this is safe:
