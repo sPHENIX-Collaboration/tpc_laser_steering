@@ -1,7 +1,8 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 import subprocess
 import json
+import sys
 
 
 def setPrecision(input, prec):
