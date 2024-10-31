@@ -20,12 +20,12 @@ def aimAtCentralMembrane(laserName, x=0,y=0):
     #theta angle is the triangle in the phi direction, so 
     base=math.sqrt((x-xo)**2+(y-yo)**2)
     height=zo-z
-    theta=atan(base/height)
+    theta=math.atan2(base,height)
 
     #phi angle is the target phi:
     horiz=(x-xo)
     vert=(y-yo)
-    phi=atan2(vert,horiz)
+    phi=math.atan2(vert,horiz)
 
     aimAt(laserName, laserName, theta, phi+180)
     return
