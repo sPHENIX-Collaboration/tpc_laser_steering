@@ -175,7 +175,7 @@ def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
     #get our phi motor position:
     if(phi!=None):
         #get the quartz angle with respect to the phi origin so we can count bounces correctly
-        quartzPhi=getQuartzAngle(eggName)
+        quartzPhi=getQuartzAngle(eggName,phi)
         #see how much we bounce
         if(theta!=None):
             tooCloseToEdge,bouncesX, bouncesY=countBounces(phi,theta)
