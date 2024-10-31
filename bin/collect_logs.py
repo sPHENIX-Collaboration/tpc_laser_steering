@@ -53,7 +53,9 @@ def collect_logs():
 
         # for each axis log file, grab second-to-last entry and store as axis entry in that bench's dictionary
         for logfile in logfiles:
-            grabdata=['tail', '-n', '2', dirAxisLogs+logfile, '|', 'head', '-n', '1']
+            grabdata=['tail', '-n', '2', logfile, '|', 'head', '-n', '1']
+            print("grabdata command:")
+            print(grabdata)
             result=subprocess.run(grabdata, capture_output=True, text=True)
             axis=os.path.splitext(os.path.basename(logfile))[0]
             #axis=log.rstrip(".log")
