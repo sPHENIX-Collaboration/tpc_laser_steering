@@ -52,7 +52,8 @@ def collect_logs():
             axes[axis]=json.loads(result.stdout)
         
         # lastly assign that bench to the benches dictionary
-        benches[b]=axes
+        if axes!={}:
+            benches[b]=axes
 
     print(json.dumps(dataLasers, indent=4))
 
