@@ -40,6 +40,7 @@ def collect_logs():
 
         # list all relevant axis log files for that bench
         command=['ls', dirAxisLogs+b+'*']
+        print(command)
         result=subprocess.run(command, capture_output=True, text=True)
         print("result.stdout")
         print(result.stdout)
