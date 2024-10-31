@@ -108,7 +108,7 @@ if __name__ == "__main__":
 
     #v0: command=['ssh','pi@10.20.35.5','tail -n 2 ~/XCDCommandCodes/bin/masterLog | head -n 1']
     #for testing: command=['cat','dummy_v2.json']
-    command==['ssh','pi@10.20.35.5','~/XCDCommandCodes/bin/collect_logs.py']
+    command=['ssh','pi@10.20.35.5','~/XCDCommandCodes/bin/collect_logs.py']
     #command=['echo','hello world']
     result = subprocess.run(command, capture_output=True, text=True)
     if (result.stderr==""):
