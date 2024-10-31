@@ -215,7 +215,7 @@ def aimAt(laserName, eggName=None, th=None, ph=None, sOff=0, lOff=0):
     if (theta!=None and phi!=None):
         #moving both
         print("aimAt(%s,%s)==>Move %s(%s) to:(p%s,ts%s,tl%s)"%(theta,phi,laserName,eggName,phiCoord,thetaS,thetaL))
-        print("aimAt(%s,%s) reports nBounces (x%s,y%s)"%(bouncesX,bouncesY))
+        print("aimAt(%s,%s) reports nBounces (x%s,y%s)"%(theta,phi,bouncesX,bouncesY))
         retPh=goto(laserName+"_PH",phiCoord)
         retThS=goto(laserName+"_TH_S",thetaS+float(sOff))
         retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
