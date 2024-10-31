@@ -80,7 +80,7 @@ def debounce(phi, axisPhi, nBouncesX, nBouncesY):
     if (nBouncesY % 2 == 1): #if we bounce against Y=0 once, we get reflected about the X axis
         pipePhi=-pipePhi
     phi=pipePhi+axisPhi    
-    return 0
+    return phi
 
 def getQuartzAngle(eggName,phi):
     #look up the position that points at phi0 (=pointing outward(or inward?  ask Charles) along the radial spoke)
@@ -175,7 +175,7 @@ def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
     #get our phi motor position:
     if(phi!=None):
         #get the quartz angle with respect to the phi origin so we can count bounces correctly
-        quartzPhi=getQuartzAngle(eggName)
+        quartzPhi=getQuartzAngle(eggName,phi)
         #see how much we bounce
         if(theta!=None):
             tooCloseToEdge,bouncesX, bouncesY=countBounces(phi,theta)
