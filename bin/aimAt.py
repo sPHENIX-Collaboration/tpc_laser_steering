@@ -167,17 +167,25 @@ def getThetaMotorCoordinates(eggName,theta):
     
 
 
-def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
+def aimAt(laserName, eggName=None, th=None, ph=None, sOff=0, lOff=0):
     #assume we have phi and theta in degrees
 
-    #TODO: sanity check the inputs
-
     #get our phi motor position:
-    if(phi!=None):
+    if(ph!=None):    
+        if is_number(ph):
+            phi = float(ph)
+        else:
+            print("aimAt.py failed - invalid phi input, must be float")
+            return
         #get the quartz angle with respect to the phi origin so we can count bounces correctly
         quartzPhi=getQuartzAngle(eggName,phi)
         #see how much we bounce
-        if(theta!=None):
+        if(th!=None):
+            if is_number(th):
+                theta = float(th)
+            else:
+                print("aimAt.py failed - invalid theta input, must be float")
+                return
             tooCloseToEdge,bouncesX, bouncesY=countBounces(phi,theta)
         else:
             bouncesX=0
@@ -188,7 +196,12 @@ def aimAt(laserName, eggName=None, theta=None, phi=None, sOff=0, lOff=0):
         phiCoord=getPhiMotorCoordinate(eggName,debouncedPhi)
 
     #get our theta motor position
-    if(theta!=None):
+    if(th!=None):
+        if is_number(th):
+            theta = float(th)
+        else:
+            print("aimAt.py failed - invalid theta input, must be float")
+            return
         thetaS,thetaL=getThetaMotorCoordinates(eggName,theta)
 
 
