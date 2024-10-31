@@ -13,8 +13,15 @@ def setPrecision(input, prec):
         truncatedDatum=int(truncatedDatum)
     return scaledDatum,truncatedDatum
 
-def parseJson(input):
+def parseJson(input,filename):
     data=json.loads(input)
+
+    #print the json directly:
+    with open(filename,'w') as file:
+        print(data, file=file)
+                
+ 
+
     #data contains:
     header=data.get('header')
     lastcommand=None
@@ -93,10 +100,10 @@ def parseJson(input):
             print(value)
 
     #print the data in human-readable form:
-    print("last py: %s\ttime:%s"%   (lastCommand,"no time")) 
+    print("human:last py: %s\ttime:%s"%   (lastCommand,"no time")) 
     #loop over all benches and axes
     for axisName,a in truncAxes.items():
-        print("%s (id=%s,axis=%s)\tCom=%s (arg=%s) Status=%s pos=%s\thome=%s lb=%s hb=%s turns=%s frp=%s frn=%s li=%s"%(axisName,a['ID'],a['XAXIS'],a['COMMAND'],a['ARG'],a['STATUS'],a['FPOS'],a['HOME'],a['HARD_STOP1'],a['HARD_STOP2'],a['TURNS'],a['FRP'],a['FRN'],a['LI']))
+        print("human:%s (id=%s,axis=%s)\tCom=%s (arg=%s) Status=%s pos=%s\thome=%s lb=%s hb=%s turns=%s frp=%s frn=%s li=%s"%(axisName,a['ID'],a['XAXIS'],a['COMMAND'],a['ARG'],a['STATUS'],a['FPOS'],a['HOME'],a['HARD_STOP1'],a['HARD_STOP2'],a['TURNS'],a['FRP'],a['FRN'],a['LI']))
     #all done!
     return
 
@@ -109,4 +116,4 @@ if __name__ == "__main__":
     #command=['echo','hello world']
     result = subprocess.run(command, capture_output=True, text=True)
     if (result.stderr==""):
-        parseJson(result.stdout)
+        parseJson(result.stdout, "temp.json")
