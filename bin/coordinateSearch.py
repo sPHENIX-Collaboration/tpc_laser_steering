@@ -12,10 +12,11 @@ from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 debug=False
 sleeptime=5
 
-def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=None, hb_TH=None):
+def coordinateSearch(axis, numPts_PH, numPts_TH, sleep, lb_PH=None, hb_PH=None, lb_TH=None, hb_TH=None):
 
     numPH=int(numPts_PH)
     numTH=int(numPts_TH)
+    sleeptime=float(sleep)
 
     if numPH<=1 or numTH<=1:
         return
@@ -59,20 +60,22 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=N
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
+    if len(sys.argv) == 5:
         axis = sys.argv[1]
         numPts_PH = sys.argv[2]
         numPts_TH = sys.argv[3]
+        sleep=sys.argv[4]
         coordinateSearch(axis, numPts_PH, numPts_TH)
-    elif len(sys.argv) == 8:
+    elif len(sys.argv) == 9:
         axis=sys.argv[1]
         numPts_PH = sys.argv[2]
         numPts_TH = sys.argv[3]
-        lb_PH=sys.argv[4]
-        hb_PH=sys.argv[5]
-        lb_TH=sys.argv[6]
-        hb_TH=sys.argv[7]
-        coordinateSearch(axis,)
+        sleep=sys.argv[4]
+        lb_PH=sys.argv[5]
+        hb_PH=sys.argv[6]
+        lb_TH=sys.argv[7]
+        hb_TH=sys.argv[8]
+        coordinateSearch(axis,numPts_PH,numPts_TH,sleep,lb_PH,hb_PH,lb_TH,hb_TH)
     else:
         print("coordinateSearch.py NOT EXECUTED.  Incorrect number of arguments.  Correct usage is:")
         print("     ./coordinateSearch.py  [axis]  [numPts_PH]  [numPts_TH]       OR")
