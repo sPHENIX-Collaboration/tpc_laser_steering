@@ -9,7 +9,10 @@ result = subprocess.run(command, capture_output=True, text=True)
 print(result.stdout)
 if (result.stderr==""):
     data=json.loads(result.stdout)
-
+    #data contains 
+    #bench contains 8 axis contains d
+    #for bench in data
+    #for axis in bench
     d=['ID','XAXIS','COMMAND','ARG','STATUS','HOME','HARD_STOP1','HARD_STOP2','TURNS','FPOS']
     #for sanity checks, we include some extra digits on the things that should be integers.
     #this is the number of digits after the decimal that we keep:
@@ -48,8 +51,7 @@ if (result.stderr==""):
         print("Readback of %s=%s %s.\nMantissa:\n%s\nMultiplier\n%s\nSanity Check Residual:\n%s"%(d[i],truncatedDatum,intReply,scaledDatum,scaleFactor,residual))
    #todo:  built a full list of commands that is flat so we can figure out what command is running without having to know what kind of axis we are on first.    
     print("Human Readable:")
-    print("ChannelID:%s (axis=%s)\tCommand=%s (arg=%s)\tStatus=%s"%(p[0],p[1],p[2],p[3],p[4]))
-    print("Axis Values: home=%s\tlb=%s\thb=%s\tturns=%s"%(p[5],p[6],p[7],p[8]))
-    print("Axis Motion: pos=%s\tdelta=(none) (motion between two consecutive FPOS reports)"%(p[9]))
-    
+    print("last py: %s args: %s time:%s"%   ("not","yet implemented","no time")) 
+    #loop over all benches and axes
+    print("ChannelID:%s (axis=%s)\tCom=%s (arg=%s)\tStatus=%s\thome=%s\tlb=%s\thb=%s\tturns=%s\tpos=%s"%(p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],p[9])    
                        
