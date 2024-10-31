@@ -18,7 +18,7 @@ def aimAtCentralMembrane(laserName, x=0,y=0):
     zo=1050
 
     #theta angle is the triangle in the phi direction, so 
-    base=sqrt((x-xo)**2+(y-yo)**2)
+    base=math.sqrt((x-xo)**2+(y-yo)**2)
     height=zo-z
     theta=atan(base/height)
 
