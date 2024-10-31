@@ -55,8 +55,8 @@ def collect_logs():
         for logfile in logfiles:
             grabtwo=['tail', '-n', '2', logfile]
             #grabdata=['tail', '-n', '2', logfile, '|', 'head', '-n', '1']
-            print("grabdata command:")
-            print(grabdata)
+            #print("grabdata command:")
+            #print(grabdata)
             result=subprocess.run(grabtwo, capture_output=True, text=True)
             print("result:"+result.stdout+".")
 
