@@ -2,37 +2,53 @@
 
 import sys
 import os
-from quickReport import reportXCD2, readback
+from xcdSerial import getCurrentPort
+from quickReport import readback
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
-
-# to load tty data from the db so we know which tty we want:
-sys.path.append("kfDatabase")
-import kfDatabase
+from variableDictionaryXCD2 import varUniqueID as AXID
 
 debug=False
-logFile="masterLog"
+logDirectory="/home/pi/XCDCommandCodes/bin/axisLogs/"
+
+# need axis to be in format 9N_TH_S
+# logfile needs USB port too for posterity
+# logfile needs to write all data to specific axis (motor) logfile
+# format as 9N_##.log
+# how do we collect most up-to-date info?
+# collect_logs -tail -2 > head -1 to 
+
+def _reverseLookup(dict,val):
+    #set up the reverse dictionary
+    reverse_mapping={v: k for k, v in dict.items()}
+    try:
+        key=reverse_mapping[val]
+    except KeyError as e:
+        print(f"gotoDogleg lookup failed.  KeyError: {e}")
+        sys.exit()
+    return key  
+
 
 def logfileEntry():
 
-    with open(logFile, "a") as file:
-        file.write('{')
+    axisID = readback(ADDR['ID'])
+    axis = _reverseLookup(AXID, axisID)
+
+    filename = logDirectory + axis
+    with open(filename, "a") as file:
+        file.write('{\"USBport\":\"%s\"' % (axis, getCurrentPort()))
     
         for varName, varVal in ADDR.items():
-
-                # report every variable from varDict
-                check, trueVal = reportXCD2([varVal])
-
-                if check==False:
-                    print("CRITICAL FAILURE. Communication error.")
-                    return False
-            
-                if debug:
-                    print("_readback result: ", trueVal[0])
-            
-                # Logs the change to the log for a change
-                file.write('\"%s\":%s, ' % (varName, trueVal[0]))
+                
+            # readback each variable in ADDR dictionary
+            trueVal=readback(ADDR[varVal])
         
-        file.write('\"nothing\":0} \n')
+            if debug:
+                print("_readback result: ", trueVal)
+
+            # Logs the change to the log for a change
+            file.write(',\"%s\":%s' % (varName, trueVal))
+        
+        file.write('} \n')
 
     return True
 
@@ -42,4 +58,5 @@ if __name__ == "__main__":
         logfileEntry()
     else:
         print("./logfileEntry.py NOT EXECUTED. Wrong number of arguments.  Correct usage is:")
-        print("     ./logfileEntry()")
+        print("     ./logfileEntry.py")
+        sys.exit()
