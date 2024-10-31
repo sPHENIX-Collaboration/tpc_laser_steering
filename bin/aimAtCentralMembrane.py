@@ -23,9 +23,9 @@ def aimAtCentralMembrane(laserName, x=0,y=0):
     theta=atan(base/height)
 
     #phi angle is the target phi:
-	horiz=(x-xo)
-	vert=(y-yo)
-	phi=atan2(vert,horiz)
+    horiz=(x-xo)
+    vert=(y-yo)
+    phi=atan2(vert,horiz)
 
     aimAt(laserName, laserName, theta, phi+180)
     return
