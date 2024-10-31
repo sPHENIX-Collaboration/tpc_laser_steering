@@ -19,6 +19,7 @@ def parseJson(input,filename=None):
 
     #print the json directly:
     if (filename):
+        print(filename)
         with open(filename,'w') as file:
             print(input, file=file)
                 
