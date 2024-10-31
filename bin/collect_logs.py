@@ -4,6 +4,7 @@ import os
 import sys
 import subprocess
 import json
+import glob
 
 dirAxisLogs="/home/pi/XCDCommandCodes/bin/axisLogs/"
 dirPC="/mnt/c/Users/smh28/Documents/Github/tpc_laser_steering/bin/axisLogs/"
@@ -45,14 +46,17 @@ def collect_logs():
         print("result.stdout")
         print(result.stdout)
         print("result.stdout")
+        globpat=dirAxisLogs+b+'*'
+        logfiles=glob.glob(globpat)
         if result.stdout==None:
             continue
 
         # for each axis log file, grab second-to-last entry and store as axis entry in that bench's dictionary
-        for log in result.stdout.splitlines():
-            grabdata=['tail', '-n', '2', dirAxisLogs+log, '|', 'head', '-n', '1']
+        for logfile in logfiles:
+            grabdata=['tail', '-n', '2', dirAxisLogs+logfile, '|', 'head', '-n', '1']
             result=subprocess.run(grabdata, capture_output=True, text=True)
-            axis=log.rstrip(".log")
+            axis=os.path.splitext(os.path.basename(logfile))[0]
+            #axis=log.rstrip(".log")
             axes[axis]=json.loads(result.stdout)
         
         # lastly assign that bench to the benches dictionary
