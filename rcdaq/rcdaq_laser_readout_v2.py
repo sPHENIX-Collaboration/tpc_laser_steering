@@ -13,12 +13,13 @@ def setPrecision(input, prec):
         truncatedDatum=int(truncatedDatum)
     return scaledDatum,truncatedDatum
 
-def parseJson(input,filename):
+def parseJson(input,filename=None):
     data=json.loads(input)
 
     #print the json directly:
-    with open(filename,'w') as file:
-        print(data, file=file)
+    if (filename):
+        with open(filename,'w') as file:
+            print(data, file=file)
                 
  
 
@@ -47,37 +48,30 @@ def parseJson(input,filename):
         print("no information on precision found in header")
         #we can't do any scaling if there was no precision info.
         return
-    
+
     benches=data.get('benches')
     if not benches:
         print("no benches found in input data")
         #this just means there's nothing to report.
         return
-
     #assemble the list of all axes in the json, and set the precision of all numbers
     cleanAxes={}
     truncAxes={}
-    for bench in benches:
-        benchName=bench.get('name')
-        axes=bench.get('axes')
-        if axes:
-            for axis in axes:
-                axisName=axis.get('name')
-                if axisName is None:
-                    axisName='_NO_NAME'
-                fullName=benchName+'_'+axisName
-                cleanAxis={}
-                truncAxis={}
-                #cleanAxis['bench']=benchName
-                #cleanAxis['axis']=axisName
-                for key,value in axis.items():
-                    if key in precision:
-                        #set the precision to the one in the header, then add to the axis dictionary
-                        cleanValue,truncValue=setPrecision(value,precision[key])
-                        cleanAxis[key]=cleanValue
-                        truncAxis[key]=truncValue
-                cleanAxes[fullName]=cleanAxis
-                truncAxes[fullName]=truncAxis
+    for benchName,benchAxes in benches.items():
+        print("bench:%s"%(benchName))
+        for axisName,axis in benchAxes.items():
+            cleanAxis={}
+            truncAxis={}
+            #cleanAxis['bench']=benchName
+            #cleanAxis['axis']=axisName
+            for key,value in axis.items():
+                if key in precision:
+                    #set the precision to the one in the header, then add to the axis dictionary
+                    cleanValue,truncValue=setPrecision(value,precision[key])
+                    cleanAxis[key]=cleanValue
+                    truncAxis[key]=truncValue
+                cleanAxes[axisName]=cleanAxis
+                truncAxes[axisName]=truncAxis
 
     #print out the version:
     print("version")
@@ -111,9 +105,20 @@ def parseJson(input,filename):
 
     
 if __name__ == "__main__":
-    #command=['ssh','pi@10.20.35.5','tail -n 2 ~/XCDCommandCodes/bin/masterLog | head -n 1']
-    command=['cat','dummy.json']
+
+    #v0: command=['ssh','pi@10.20.35.5','tail -n 2 ~/XCDCommandCodes/bin/masterLog | head -n 1']
+    #for testing: command=['cat','dummy_v2.json']
+    command==['ssh','pi@10.20.35.5','~/XCDCommandCodes/bin/collect_logs.py']
     #command=['echo','hello world']
     result = subprocess.run(command, capture_output=True, text=True)
     if (result.stderr==""):
-        parseJson(result.stdout, "temp.json")
+        if len(sys.argv)==1:
+            #if no arguments, generate output, do not generate json output
+            parseJson(result.stdout)
+        elif len(sys.argv)==2:
+            #if there's an argument, write the json to that file the dummy instead:
+            parseJson(result.stdout,sys.argv[1])
+        else:
+            print("wrong args.  can't get laser data") 
+
+    
