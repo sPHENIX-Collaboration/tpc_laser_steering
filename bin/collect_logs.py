@@ -40,16 +40,16 @@ def collect_logs():
         axes={}
 
         # list all relevant axis log files for that bench
-        command=['ls', dirAxisLogs+b+'*']
-        print(command)
-        result=subprocess.run(command, capture_output=True, text=True)
-        print("result.stdout")
-        print(result.stdout)
-        print("result.stdout")
+        #command=['ls', dirAxisLogs+b+'*']
+        #print(command)
+        #result=subprocess.run(command, capture_output=True, text=True)
+        #print("result.stdout")
+        #print(result.stdout)
+        #print("result.stdout")
         globpat=dirAxisLogs+b+'*'
         logfiles=glob.glob(globpat)
-        if result.stdout==None:
-            continue
+        #if result.stdout==None:
+        #    continue
 
         # for each axis log file, grab second-to-last entry and store as axis entry in that bench's dictionary
         for logfile in logfiles:
