@@ -35,7 +35,7 @@ def logfileEntry():
 
     filename = logDirectory + axis
     with open(filename, "a") as file:
-        file.write('{\"USBport\":\"%s\"' % (axis, getCurrentPort()))
+        file.write('{\"USBport\":\"%s\"' % (getCurrentPort()))
     
         for varName, varVal in ADDR.items():
                 
