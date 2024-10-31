@@ -41,6 +41,7 @@ def collect_logs():
         # list all relevant axis log files for that bench
         command=['ls', dirAxisLogs+b+'*']
         result=subprocess.run(command, capture_output=True, text=True)
+        print(result.stdout)
 
         # for each axis log file, grab second-to-last entry and store as axis entry in that bench's dictionary
         for log in result:
