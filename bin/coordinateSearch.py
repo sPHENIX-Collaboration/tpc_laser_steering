@@ -39,12 +39,12 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=N
 
     phi_arr = [0.0]*numPH
     phi_space=(hb_PH-lb_PH)/(numPH-1)
-    for i in range(numPts_PH):
+    for i in range(numPH):
         phi_arr[i]=lb_PH+i*phi_space
 
     th_arr = [0.0]*numTH
     th_space=(hb_PH-lb_TH)/(numTH-1)
-    for i in range(numPts_PH):
+    for i in range(numPH):
         th_arr[i]=lb_TH+i*th_space
 
     for th in th_arr:
