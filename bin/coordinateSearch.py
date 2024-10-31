@@ -10,11 +10,14 @@ from aimAt import aimAt
 from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 
 debug=False
-sleeptime=30
+sleeptime=5
 
 def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=None, hb_TH=None):
 
-    if numPts_PH<=1 or numPts_TH<=1:
+    numPH=float(numPts_PH)
+    numTH=float(numPts_TH)
+
+    if numPH<=1 or numTH<=1:
         return
 
     phiAxis = axis+"_PH"
@@ -34,13 +37,13 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=N
     if hb_TH == None:
         hb_TH = 30
 
-    phi_arr = [0.0]*numPts_PH
-    phi_space=(hb_PH-lb_PH)/(numPts_PH-1)
+    phi_arr = [0.0]*numPH
+    phi_space=(hb_PH-lb_PH)/(numPH-1)
     for i in range(numPts_PH):
         phi_arr[i]=lb_PH+i*phi_space
 
-    th_arr = [0.0]*numPts_TH
-    th_space=(hb_PH-lb_TH)/(numPts_TH-1)
+    th_arr = [0.0]*numTH
+    th_space=(hb_PH-lb_TH)/(numTH-1)
     for i in range(numPts_PH):
         th_arr[i]=lb_TH+i*th_space
 
