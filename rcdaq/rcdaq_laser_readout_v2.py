@@ -20,7 +20,7 @@ def parseJson(input,filename=None):
     #print the json directly:
     if (filename):
         with open(filename,'w') as file:
-            print(data, file=file)
+            print(json.dumps(data), file=file)
                 
  
 
