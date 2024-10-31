@@ -58,7 +58,7 @@ def collect_logs():
             #print("grabdata command:")
             #print(grabdata)
             result=subprocess.run(grabtwo, capture_output=True, text=True)
-            print("result:"+result.stdout+".")
+            #print("result:"+result.stdout+".")
 
             axis=os.path.splitext(os.path.basename(logfile))[0]
             #axis=log.rstrip(".log")
