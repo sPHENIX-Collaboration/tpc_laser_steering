@@ -12,7 +12,8 @@ import time
 
 def drawWords(laserName,t=1,steps=20):
     #t is the wait time in seconds.
-
+    t=int(t)
+    steps=int(steps)
     
     Dave={'start':[
         (0, 0), (0, 2), (0.5, 2), (1, 1.6),
