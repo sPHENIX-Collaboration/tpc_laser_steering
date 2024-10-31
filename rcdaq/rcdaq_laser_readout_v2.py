@@ -59,7 +59,7 @@ def parseJson(input,filename=None):
     cleanAxes={}
     truncAxes={}
     for benchName,benchAxes in benches.items():
-        print("bench:%s"%(benchName))
+        #print("bench:%s"%(benchName))
         for axisName,axis in benchAxes.items():
             cleanAxis={}
             truncAxis={}
