@@ -32,15 +32,15 @@ def drawWords(laserName,t=1,steps=20):
         }
     #add offset, add scale
     scale=100
-    shift=(-400,300)
+    shift=[-400,300]
     #todo:  add rotation offset?
     #todo:  make steps have a target stepsize instead of fixed number
     for s0,e0 in zip(Dave['start'],Dave['end']):
-        sx=s0[0]*scale+shift[0]
-        sy=s0[1]*scale+shift[1]
-        ex=e0[0]*scale+shift[0]
-        ey=e0[1]*scale+shift[1]
-        step = ((ex - sx)/steps, (ey - sy)/steps)
+        sx=float(s0[0])*scale+shift[0]
+        sy=float(s0[1])*scale+shift[1]
+        ex=float(e0[0])*scale+shift[0]
+        ey=float(e0[1])*scale+shift[1]
+        step = [(ex - sx)/steps, (ey - sy)/steps]
         for i in range(steps):
             aimAtCentralMembrane(laserName, sx+step[0]*i, sy+step[1]*i)
             time.sleep(t)
