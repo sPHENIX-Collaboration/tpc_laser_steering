@@ -44,7 +44,7 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=N
 
     th_arr = [0.0]*numTH
     th_space=(hb_PH-lb_TH)/(numTH-1)
-    for i in range(numPH):
+    for i in range(numTH):
         th_arr[i]=lb_TH+i*th_space
 
     for th in th_arr:
