@@ -33,7 +33,7 @@ def logfileEntry():
     axisID = readback(ADDR['ID'])
     axis = _reverseLookup(AXID, axisID)
 
-    filename = logDirectory + axis
+    filename = logDirectory + axis + '.log'
     with open(filename, "a") as file:
         file.write('{\"USBport\":\"%s\"' % (getCurrentPort()))
     
