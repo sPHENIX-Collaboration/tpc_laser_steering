@@ -5,7 +5,7 @@ from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 from variableDictionaryXCD2 import varUniqueID as AXID
 
 enr = 6.103515625e-5
-path = '/mnt/c/Users/smh28/Documents/Github/tpc_laser_steering/bin/axisLogs/'
+path = '/home/pi/XXCDCommandCodes/bin/axisLogs/'
 suffix = '.log'
 
 for axisName in AXID:
