@@ -57,6 +57,8 @@ def collect_logs():
             print("grabdata command:")
             print(grabdata)
             result=subprocess.run(grabdata, capture_output=True, text=True)
+            print("result:"+result.stdout+".")
+
             axis=os.path.splitext(os.path.basename(logfile))[0]
             #axis=log.rstrip(".log")
             axes[axis]=json.loads(result.stdout)
