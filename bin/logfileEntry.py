@@ -40,7 +40,7 @@ def logfileEntry():
         for varName, varVal in ADDR.items():
                 
             # readback each variable in ADDR dictionary
-            trueVal=readback(ADDR[varVal])
+            trueVal=readback(varVal)
         
             if debug:
                 print("_readback result: ", trueVal)
