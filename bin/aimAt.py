@@ -80,7 +80,7 @@ def debounce(phi, axisPhi, nBouncesX, nBouncesY):
     if (nBouncesY % 2 == 1): #if we bounce against Y=0 once, we get reflected about the X axis
         pipePhi=-pipePhi
     phi=pipePhi+axisPhi    
-    return 0
+    return phi
 
 def getQuartzAngle(eggName,phi):
     #look up the position that points at phi0 (=pointing outward(or inward?  ask Charles) along the radial spoke)
