@@ -29,9 +29,9 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=N
         if not didChange:
             print("Could not get phi bounds")
             return
-        lb_PH = 360*readback(ADDR['HARD_STOP1'])
+        lb_PH = 360*readback(ADDR['HARD_STOP1'])+1
     if hb_PH == None:
-        hb_PH = 360*readback(ADDR['HARD_STOP2'])
+        hb_PH = 360*readback(ADDR['HARD_STOP2'])-1
     if lb_TH == None:
         lb_TH = 10
     if hb_TH == None:
@@ -43,7 +43,7 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, lb_PH=None, hb_PH=None, lb_TH=N
         phi_arr[i]=lb_PH+i*phi_space
 
     th_arr = [0.0]*numTH
-    th_space=(hb_PH-lb_TH)/(numTH-1)
+    th_space=(hb_TH-lb_TH)/(numTH-1)
     for i in range(numTH):
         th_arr[i]=lb_TH+i*th_space
 
