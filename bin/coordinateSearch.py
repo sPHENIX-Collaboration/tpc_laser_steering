@@ -11,7 +11,7 @@ from variableDictionaryXCD2 import varInterfaceAddresses as ADDR
 
 debug=False
 
-def coordinateSearch(axis, numPts_PH, numPts_TH, sleep=5, lb_PH=None, hb_PH=None, lb_TH=None, hb_TH=None):
+def coordinateSearch(axis, numPts_PH, numPts_TH, sleep=5, lb_PHI=None, hb_PHI=None, lb_THI=None, hb_THI=None):
 
     numPH=int(numPts_PH)
     numTH=int(numPts_TH)
@@ -24,18 +24,29 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, sleep=5, lb_PH=None, hb_PH=None
     thsAxis = axis+"_TH_S"
     thlAxis = axis+"_TH_L"
 
-    if lb_PH == None:
+    if lb_PHI == None:
         didChange = changeAxis(phiAxis)
         if not didChange:
             print("Could not get phi bounds")
             return
         lb_PH = 360*readback(ADDR['HARD_STOP1'])+1
-    if hb_PH == None:
+    else:
+        lb_PH=float(lb_PHI)
+    
+    if hb_PHI == None:
         hb_PH = 360*readback(ADDR['HARD_STOP2'])-1
-    if lb_TH == None:
+    else:
+        hb_PH = float(hb_PHI)
+    
+    if lb_THI == None:
         lb_TH = 10
-    if hb_TH == None:
+    else:
+        lb_TH = float(lb_THI)
+    
+    if hb_THI == None:
         hb_TH = 30
+    else:
+        hb_TH = float(hb_THI)
 
     phi_arr = [0.0]*numPH
     phi_space=(hb_PH-lb_PH)/(numPH-1)
