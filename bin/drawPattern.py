@@ -49,7 +49,7 @@ def drawPattern():
         128, 133, 138, 143, 148,
         153]
         
-    for i in range(theta.len()):
+    for i in range(len(theta)):
         aimAt(axis, axis, theta[i], phi[i])
         time.sleep(sleeptime)
 
