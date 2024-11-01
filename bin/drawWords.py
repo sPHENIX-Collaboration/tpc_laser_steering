@@ -9,7 +9,6 @@ import time
 
     
 
-
 def drawWords(laserName,t=1,steps=20):
     #t is the wait time in seconds.
     t=int(t)
