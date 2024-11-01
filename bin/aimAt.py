@@ -212,7 +212,7 @@ def aimAt(laserName, eggName=None, th=None, ph=None, sOff=0, lOff=0):
  
     #TODO: see if this is in the lb-hb range of the phi motor, and add a bounce if it is not
     
-    if (theta!=None and phi!=None):
+    if (th!=None and ph!=None):
         #moving both
         print("aimAt(%s,%s)==>Move %s(%s) to:(p%s,ts%s,tl%s)"%(theta,phi,laserName,eggName,phiCoord,thetaS,thetaL))
         print("aimAt(%s,%s) reports nBounces (x%s,y%s)"%(theta,phi,bouncesX,bouncesY))
@@ -221,14 +221,14 @@ def aimAt(laserName, eggName=None, th=None, ph=None, sOff=0, lOff=0):
         retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
         print("aimAt attempted:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,phiCoord,laserName,thetaS,laserName,thetaL))
         print("aimAt returns:  %s_PH:%s  %s_TH_S:%s  %s_TH_L:%s"%(laserName,retPh,laserName,retThS,laserName,retThL))
-    if (theta!=None and phi==None):
+    if (th!=None and ph==None):
         #only moving theta
         print("aimAt(%s,nophi)==>Move %s(%s) to:(ts%s,tl%s)"%(theta,laserName,eggName,thetaS,thetaL))
         retThS=goto(laserName+"_TH_S",thetaS+float(sOff))
         retThL=goto(laserName+"_TH_L",thetaL+float(lOff))
         print("aimAt attempted:  %s_TH_S:%s  %s_TH_L:%s"%(laserName,thetaS,laserName,thetaL))
         print("aimAt returns:  %s_TH_S:%s  %s_TH_L:%s"%(laserName,retThS,laserName,retThL))
-    if (theta==None and phi!=None):
+    if (th==None and ph!=None):
         #only moving phi
         print("aimAt(notheta,%s)==>Move %s(%s) to:(p%s)"%(phi,laserName,eggName,phiCoord))
         retPh=goto(laserName+"_PH",phiCoord)
