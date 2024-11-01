@@ -17,6 +17,7 @@ def coordinateSearch(axis, numPts_PH, numPts_TH, sleep=5, lb_PHI=None, hb_PHI=No
     numTH=int(numPts_TH)
     sleeptime=float(sleep)
 
+    # TODO: make it so that we can use just 1 point
     if numPH<=1 or numTH<=1:
         return
 
