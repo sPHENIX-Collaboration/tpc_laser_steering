@@ -9,7 +9,7 @@ debug=False
 
 def drawPattern():
     sleeptime=20
-    axis=9N
+    axis='9N'
     '''
     theta = [
         14.9326, 15.5004, 16.0818, 16.6745, 17.2767,
