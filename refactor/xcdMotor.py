@@ -9,8 +9,9 @@ import os
 import sys
 import re
 import struct
+import time
 
-sys.path.append("C:/Users/smh28/Documents/Github/XCDCommandCodes/bin/")
+sys.path.append("C:/Users/smh28/Documents/Github/tpc_laser_steering/bin/")
 import xcdSerial
 import variableDictionaryXCD2
 from variableDictionaryXCD2 import varAllCommands as ALL_COMM 
