@@ -12,30 +12,41 @@ Each laser (total of 8 benches) is steered with a set of piezomotors, motor cont
 
 ## Getting Started
 
+### Dependencies
+
+This software is designed to be run using a command-line interface, python3 
+* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+* ex. Windows 10
+
 ### Executing programs
 
-Using a command-line interface, log into BNL SDCC then tunnel to the sPHENIX operations server.  From there, navigate to the `~/laser/tpc_laser_steering/` directory.  Programs to steer the laser are primarily found in the `./bin` directory
-
-* How to run the program
-* Step-by-step bullets
+Using a command-line interface, log into BNL SDCC then tunnel to the sPHENIX operations server.  From there, navigate to the `~/laser/tpc_laser_steering/` directory.  Programs to steer the laser are primarily found in the `./bin` directory and largely written as Shell or Python scripts.  These are modified to be executable via the shell.
 ```
 code blocks for commands
 ```
 
-`git clone `
-
-### "Fixed" Variables
-
-### Dependencies
-
-Program requires python3 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
 ### Installing
 
+In the event that 
 * How/where to download your program
 * Any modifications needed to be made to files/folders
+`git clone `
+
+## Help
+
+Any questions or concerns with the line laser software can be directed to Seth Howell at seth.howell@stonybrook.edu or Ross Corliss at ross.corliss@stonybrook.edu.  
+
+## Version History
+
+* 1.1.0
+    * In progress...
+* 1.0.0
+    * Initial release
+
+
+## Acknowledgments
+
+This is the product
 
 ## TL;DR
 
@@ -62,29 +73,6 @@ if needed:
 `./quickAssign.py XAXIS 1` -- switches the current axis to axis 1 (other data will not be updated).  Use '0' to switch to zero.
 `./changeAxisDogleg.py L0_DL0_A0` -- switches the axis to axis 0 for dogleg 0 on laser 0, and loads the last known variables for that axis from file to the controller, if the file exists.  Writes out the current file for the current axis as well.
 
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-This is the 
 
 For dev work:
 1) stop any running loops in the .s19 software, then restart
