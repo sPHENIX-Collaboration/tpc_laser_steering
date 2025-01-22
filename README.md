@@ -62,11 +62,13 @@ The following commands are written in the order they are intended to be executed
 
 * `./changeAxisDogleg.py DEBUG_PH (or _TH_S or _TH_L or _DL_A0 or _DL_A1)` -- changes given motor axis being talked to (also sets active port and axis)
 
-* `./clearDogleg.py` -- resets error states in the controller status.  8=nack, 9=busy, 1=fail, 98=rebooted
+* `./clearDogleg.py` -- resets error states in the controller status (this works on all motors, not just the doglegs).  8=nack, 9=busy, 1=fail, 98=rebooted
 
 * `./homeDogleg.py` -- moves the current axis to home and keeps track of rotations.  stops if |rotations|>3
 
-* `./homePhi.py `
+* `./homeThetaS.py test`, `./homeThetaL.py test`, `./homePhi.py test` -- performs homing sequence for particular motors test can be any string
+
+* `./goto.py [axis] [position]` -- moves a given motor axis to a given position 
 
 * `./gotoDogleg.py 3.1` -- moves the current axis to absolute position 3.1, with occasional backs to unbind.   stops if |rotations|>3
 
@@ -81,10 +83,6 @@ if needed:
 `./changeAxisDogleg.py L0_DL0_A0` -- switches the axis to axis 0 for dogleg 0 on laser 0, and loads the last known variables for that axis from file to the controller, if the file exists.  Writes out the current file for the current axis as well.
 
 
-3b) in other error modes, you can clear with: (this works on all motos, not just the doglegs)
-
-./clearDogleg.py
-
 then you can run homePhi on the phi motors, or homeThetaL or homeThetaS on those motors
 
 ./homePhi.py test
@@ -94,34 +92,21 @@ if it gets stuck in the loop you can go back and killXCD2 above.
 
 
 ### Deprecated Commands (used for XCD evaluation kit)
+
+The following set of commands was designed for use with the XCD evaluation kit, which was initially used to determine whether or not the particular piezomotors we obtained were 
 Commands to control the Direct Laser controllers and the XCD Evaluation kit using USB
 
 
-
-if needed:
-./quickAssign.py XAXIS 1 -- switches the current axis to axis 1 (other data will not be updated).  Use '0' to switch to zero.
-./changeAxisDogleg.py L0_DL0_A0 -- switches the axis to axis 0 for dogleg 0 on laser 0, and loads the last known variables for that axis from file to the controller, if the file exists.  Writes out the current file for the current axis as well.
-
-Files:
-
 XCD Commands:
-  talkNano.py: 
-  
-  readNano.py
-
-  {assign, config, configRev, home, kill, move, pulse, report}Nano.py: individual motor command scripts
-  
-  cmdNano.py: high level command
-  
-  variableDictionary.py: dictionary of XCD variables, used in some commands
-  
-  commandDictionary.py: dictionary of XCD commands, used in cmdNano.py
-  
-XCD2 Commands:
+* `talkNano.py` --
+* readNano.py
+* {assign, config, configRev, home, kill, move, pulse, report}Nano.py: individual motor command scripts
+* cmdNano.py: high level command
+* variableDictionary.py: dictionary of XCD variables, used in some commands
+* commandDictionary.py: dictionary of XCD commands, used in cmdNano.py
+* playNano.py
 
 Other:
-  SetupXCD.sh: sets serial port baud rate in bash
-  Home{Right, Left}.sh: sends XCD home command in bash
-  
-Ignore:
-  playNano:
+* SetupXCD.sh: sets serial port baud rate in bash
+* Home{Right, Left}.sh: sends XCD home command in bash
+
